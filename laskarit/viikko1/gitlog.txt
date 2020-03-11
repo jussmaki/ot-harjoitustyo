@@ -1,0 +1,113 @@
+commit 309dc7e607d3916ca873784517ce472b64ce95fe
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 16:10:24 2020 +0200
+
+    deleted file1, changed name of file2 to file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 45ea9ec358070127f62107ece1471594eed20413
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 16:08:18 2020 +0200
+
+    added dir tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 4f4a04d0ab0392f04a6f13f0fafdd2d69d22b15a
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 16:03:20 2020 +0200
+
+    changed eka.txt and kolmas.txt
+
+ eka.txt    | 4 +++-
+ kolmas.txt | 3 ++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+commit 99b7059d4c030e1d73aad9571978a9d71ab5bee7
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 16:01:50 2020 +0200
+
+    changed name of tiedosto.txt to eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 88d1983a1e97edee64df9ed05a7f99e36ea06d69
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 16:00:56 2020 +0200
+
+    deleted toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit b01dfb4ce4149ea0bc60097790d57c5063da514f
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:57:47 2020 +0200
+
+    changed tiedosto.txt
+
+ tiedosto.txt | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit be090c7191ce24ea906517130dc294188e770da9
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:57:22 2020 +0200
+
+    changed tiedosto.txt
+
+ tiedosto.txt | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+commit 02416cbb0c55a509ef74a9a1dd1fe908e6876eca
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:55:32 2020 +0200
+
+    added dir stuff
+
+ stuff/tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 15cbd2342bc79a32b8651891a73cb9a3156e1e78
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:54:55 2020 +0200
+
+    changed toinen.txt and kolmas.txt
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit e655985ead8887c37a23ebf881451a24cbd666b1
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:54:16 2020 +0200
+
+    added kolmas.txt
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9f2766c865e7695a94057f8752eaaec0e5f12a94
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:53:01 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 90080b843971a53953e80c565c4ba0abe87f2c9c
+Author: Jussi M <jussmaki@cs.helsinki.fi>
+Date:   Wed Mar 11 15:52:08 2020 +0200
+
+    added tiedosto.txt
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)

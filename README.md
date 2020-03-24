@@ -14,4 +14,5 @@
 
 ## Dokumentaatio
 [Vaatimustenmäärittely](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+
 [Työaikakirjanpito](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)

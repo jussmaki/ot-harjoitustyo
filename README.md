@@ -13,5 +13,5 @@
 [testikattavuus.png](https://github.com/jussmaki/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
 
 ## Dokumentaatio
-[Vaatimustenmäärittely] (https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
-[Työaikakirjanpito] (https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+[Vaatimustenmäärittely](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+[Työaikakirjanpito](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)

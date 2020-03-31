@@ -1,18 +1,14 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-## Tehtävät
+## Sovellus
 
-### Viikko1
+Harjoitustyön aiheeksi olen valinnut muistipelin
 
-[gitlog.txt](https://github.com/jussmaki/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+### Sovelluksen käynnistys komentoriviltä
 
-[komentorivi.txt](https://github.com/jussmaki/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-### Viikko2
-
-[testikattavuus.png](https://github.com/jussmaki/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
+mvn compile exec:java -Dexec.mainClass=memorygame.ui.MemorygameUI
 
 ## Dokumentaatio
-[Vaatimustenmäärittely](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+[Vaatimustenmäärittely](dokumentointi/vaatimusmaarittely.md)
 
-[Työaikakirjanpito](https://github.com/jussmaki/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+[Työaikakirjanpito](dokumentointi/tuntikirjanpito.md)

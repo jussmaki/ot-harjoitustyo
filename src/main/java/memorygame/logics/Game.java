@@ -3,17 +3,18 @@ package memorygame.logics;
 public class Game {
     private Deck deck;
     private Card[][] grid;
+    private int gridSize;
     private int tries;
     private int pairsFound;
     private int pairsTotal;
     private long startTime;
     private long stopTime;
-    private Card firstCardSelected;
-    private int firstCardSelectedPosX;
-    private int firstCardSelectedPosY;
-    
+    private boolean firstCardClicked;
+    private Guess guess;
+
     public Game(int size) {
 
+        this.gridSize = size;
         //initializing counters
         this.tries = 0;
         this.pairsFound = 0;
@@ -31,31 +32,41 @@ public class Game {
             }
         }
     }
-
-    public int getFirstCardSelectedPosX() {
-        return firstCardSelectedPosX;
+    
+    public void handleAction(int x, int y) {
+        System.out.println("player clicked, x: " + x + " y: " + y);
+        System.out.println("tries: " + this.tries);
+        if (!firstCardClicked) {
+            firstCardClicked = true;
+            this.startTime = System.nanoTime();            
+        }
+        if (this.guess == null) { //no selected card
+            this.guess = new Guess();
+        }
+        System.out.println("cards selected: " + this.guess.getCardsSelected());
+        if (this.guess.getCardsSelected() < 1) { //selecting first card
+            this.guess.addGuess(this.grid[x][y]);
+            return;
+        }
+        if (!this.guess.addGuess(this.grid[x][y])) { //if selecting second card ok, then check if selected cards are pair
+            return;
+        }
+        if (this.guess.match()) {
+            this.pairsFound++;
+        }
+        this.tries++;
+        this.guess = null;
+        if (!gameInProgress()) {
+            this.stopTime = System.nanoTime();
+        }
     }
-
-    public void setFirstCardSelectedPosX(int firstCardSelectedPosX) {
-        this.firstCardSelectedPosX = firstCardSelectedPosX;
+    
+    public boolean gameInProgress() {
+        if (this.pairsFound < this.pairsTotal) {
+            return true;
+        }
+        return false;
     }
-
-    public int getFirstCardSelectedPosY() {
-        return firstCardSelectedPosY;
-    }
-
-    public void setFirstCardSelectedPosY(int firstCardSelectedPosY) {
-        this.firstCardSelectedPosY = firstCardSelectedPosY;
-    }
-
-    public Card getFirstCardSelected() {
-        return firstCardSelected;
-    }
-
-    public void setFirstCardSelected(Card firstCardSelected) {
-        this.firstCardSelected = firstCardSelected;
-    }
-
     public int getTries() {
         return tries;
     }
@@ -68,22 +79,6 @@ public class Game {
         return pairsTotal;
     }
 
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getStopTime() {
-        return stopTime;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
-
     public Card[][] getGrid() {
         return grid;
     }
@@ -91,17 +86,19 @@ public class Game {
     public void setGrid(Card[][] grid) {
         this.grid = grid;
     }
-    
-    public boolean checkIfPair(Card c1, Card c2) {
-        this.tries++;
-        if (c1.getNumber() == c2.getNumber()) { //pair is found
-            this.pairsFound++;
-            c1.setFaceDown(false);
-            c2.setFaceDown(false);
-            return true;
+
+    public int getGridSize() {
+        return gridSize;
+    }
+        
+    public int getPlayTime() {
+        if (!this.firstCardClicked) {
+            return 0;
         }
-        //pair not found
-        return false;
+        if (!gameInProgress()) {
+            return (int) ((this.stopTime - this.startTime) / 1e9);
+        }
+        return (int) ((System.nanoTime() - this.startTime) / 1e9);
     }
     
     public void printGrid() {
@@ -111,12 +108,5 @@ public class Game {
             }
             System.out.println("");
         }
-    }
-    
-    public boolean gameInProgress() {
-        if (pairsFound < pairsTotal) {
-            return true;
-        }
-        return false;
     }
 }

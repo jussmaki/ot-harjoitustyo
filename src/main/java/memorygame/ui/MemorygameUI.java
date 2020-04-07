@@ -1,13 +1,18 @@
 package memorygame.ui;
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import memorygame.logics.Card;
@@ -30,11 +35,25 @@ public class MemorygameUI extends Application {
         Scene start = new Scene(homescreen);
         
         //game view
+        
         Label statistics = new Label("Tries: " + game.getTries() + " Pairs found: " + game.getPairsFound() + "/" + game.getPairsTotal());
         statistics.setFont(Font.font("Monospaced", 10));
+        //Text playTime = new Text();
+        //playTime.textProperty().bind(game.getPlayTimeAsString());
+        Label time = new Label(" Time: " + game.getPlayTime());
+        //time.
+        time.setFont(Font.font("Monospaced", 10));        
+        Timer timeTimer = new Timer();
+        timeTimer.scheduleAtFixedRate(new TimerTask(){
+            @Override
+            public void run() {
+              Platform.runLater(() -> time.setText((" Time: " + game.getPlayTime()))); 
+            }
+        }, 1000, 1000);
+        HBox hud = new HBox(statistics, time);
         BorderPane layout = new BorderPane();
-        layout.setTop(statistics);
-
+        layout.setTop(hud);
+        
         //drawing board
         GridPane board = new GridPane();
         board.setHgap(30);
@@ -42,52 +61,57 @@ public class MemorygameUI extends Application {
         board.setPadding(new Insets(10, 10, 10, 10));
         Font font = Font.font("Monospaced", 50);
         
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
+        Button[][] cardsOnBoard = new Button[game.getGridSize()][game.getGridSize()];
+        for (int x = 0; x < game.getGridSize(); x++) {
+            for (int y = 0; y < game.getGridSize(); y++) {
                 Button button = new Button("");
                 button.setFont(font);
+                button.setMinHeight(100);
+                button.setMaxHeight(100);
+                button.setMinWidth(100);
+                button.setMaxWidth(100);
                 board.add(button, x, y);
-                /*int rx=x;
-                int ry=y;
-                button.setOnAction((event) -> {
-                    if (game.getFirstCardSelected() == null) {
-                        game.setFirstCardSelected(gameGrid[rx][ry]);
-                        game.setFirstCardSelectedPosX(rx);
-                        game.setFirstCardSelectedPosY(ry);
-                        button.setText("" + gameGrid[rx][ry].getNumber());
-                    } else if (game.getFirstCardSelectedPosX() != rx && game.getFirstCardSelectedPosY() != ry) {
-                        if (game.checkIfPair(game.getFirstCardSelected(), gameGrid[rx][ry])) {
-                            button.setText("" + gameGrid[rx][ry].getNumber());
-                        } else {
-                            game.setFirstCardSelected(null);
-                            game.setFirstCardSelectedPosX(-1);
-                            game.setFirstCardSelectedPosY(-1);
-                            board.getChildren().forEach((children) -> {
-                                if (children.getLayoutX() == game.getFirstCardSelectedPosX() && children.getLayoutY() == game.getFirstCardSelectedPosY()) {
-                                    children = new Button("");
-                                }
-                            });
+                cardsOnBoard[x][y] = button;
+                int rx = x;
+                int ry = y;
+                button.setOnMouseClicked ((javafx.scene.input.MouseEvent e) -> {
+                    for (int a = 0; a < game.getGridSize(); a++) {
+                        for (int b = 0; b < game.getGridSize(); b++) {
+                            if (!game.getGrid()[a][b].isFaceDown()) {
+                                cardsOnBoard[a][b].setText("" + gameGrid[a][b].getNumber());
+                            } else {
+                                cardsOnBoard[a][b].setText("");
+                            }
                         }
-                        System.out.println(game.getFirstCardSelected());
-                     
-                        statistics.setText("Tries: " + game.getTries() + " Pairs found: " + game.getPairsFound() + "/" + game.getPairsTotal());   
                     }
-                    
-                });*/
+                    game.handleAction(rx, ry);
+                    cardsOnBoard[rx][ry].setText("" + gameGrid[rx][ry].getNumber());              
+                    statistics.setText("Tries: " + game.getTries() + " Pairs found: " + game.getPairsFound() + "/" + game.getPairsTotal());   
+                    //checking if all pairs are found
+                    if (!game.gameInProgress()) {
+                        //draw window with statistics
+                        System.out.println("game end");
+                        Alert information = new Alert(AlertType.INFORMATION);
+                        information.setHeaderText("game ended with " + game.getTries() + " tries.");
+                        information.setContentText(game.getPlayTime() + " seconds");
+                        information.setTitle("The end.");
+                        information.setOnCloseRequest((javafx.scene.control.DialogEvent eh) -> {
+                            timeTimer.cancel();
+                            stage.close();
+                        });
+                        information.show();
+                    }
+                });  
                 
-                //checking if all pairs are found
-                if (!game.gameInProgress()) {
-                    //draw window with statistics and go to homescreeen
-                    
-                }
             }
         }
 
         layout.setCenter(board);
-        Scene gameview = new Scene(layout);        
+        Scene gameview = new Scene(layout);
         
         //homescreen button actions
         quitButton.setOnAction((event) -> {
+            timeTimer.cancel();
             stage.close();
         });
         
@@ -95,9 +119,15 @@ public class MemorygameUI extends Application {
             stage.setScene(gameview);
         });
         
+        //stopping timer
+        stage.setOnCloseRequest((event) -> {
+            timeTimer.cancel();
+        });        
+        
         //show homescreen first
         stage.setScene(start);
         stage.show();
+       
     }
     
     public static void main(String[] args) {

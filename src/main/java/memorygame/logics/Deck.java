@@ -8,9 +8,12 @@ public class Deck {
 
     public Deck(int size) {
         this.cards = new ArrayList<>();
+        int id = 0;
         for (int i = 0; i < size * size / 2; i++) {
-            this.cards.add(new Card(i));
-            this.cards.add(new Card(i));            
+            this.cards.add(new Card(id, i));
+            id++;
+            this.cards.add(new Card(id, i));
+            id++;
         }
         Collections.shuffle(cards);
     }
@@ -18,10 +21,5 @@ public class Deck {
     public ArrayList<Card> getCards() {
         return this.cards;
     } 
-
-    @Override
-    public String toString() {
-        return "Deck{" + "cards=" + this.cards + '}';
-    }
     
 }

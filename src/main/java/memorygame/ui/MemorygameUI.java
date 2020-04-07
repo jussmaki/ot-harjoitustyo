@@ -10,9 +10,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import memorygame.logics.Card;
@@ -56,6 +60,7 @@ public class MemorygameUI extends Application {
         
         //drawing board
         GridPane board = new GridPane();
+        board.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         board.setHgap(30);
         board.setVgap(30);
         board.setPadding(new Insets(10, 10, 10, 10));
@@ -66,6 +71,7 @@ public class MemorygameUI extends Application {
             for (int y = 0; y < game.getGridSize(); y++) {
                 Button button = new Button("");
                 button.setFont(font);
+                button.setBackground(new Background(new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
                 button.setMinHeight(100);
                 button.setMaxHeight(100);
                 button.setMinWidth(100);

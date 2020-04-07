@@ -14,27 +14,27 @@ Peli: näkymä, jossa itse peli tapahtuu.
 
 ### Toiminnallisuudet alkuvalikossa
 
-- pelaaja voi valita pelilaudan koon (parien määrän)
+- [ ] pelaaja voi valita pelilaudan koon (parien määrän)
 
-- pelaaja voi aloittaa uuden pelin
+- [x] pelaaja voi aloittaa uuden pelin
 
 ### Toiminnallisuudet pelissä
 
-- palojen sekoittaminen ja asettaminen pöydälle kuvapuoli alaspäin käännettynä (pelin aloitus)
+- [x] palojen sekoittaminen ja asettaminen pöydälle kuvapuoli alaspäin käännettynä (pelin aloitus)
 
-- palojen kääntäminen
+- [x] palojen kääntäminen
 
 - pelaajalle näytettävät statistiikat pelin kulusta
- - laskuri yritysten määrälle
- - laskuri löydetyille pareille
- - laskuri käytetylle ajalle
+ - [x] laskuri yritysten määrälle
+ - [x] laskuri löydetyille pareille
+ - [x] laskuri käytetylle ajalle
 
 ## Jatkokehitysideoita
 
 Pelin perustoiminnallisuuksien toteuttamisen jälkeen peliä voi täydentää esim. seuraavilla toiminnallisuuksilla
 
-- ääniefektien ja taustamusiikin lisääminen
-- kaksinpeli sovellusta vastaan
-- kaksinpeli toista pelaajaa vastaan
-- top-listat
-- verkkopelitoiminnallisuuden lisääminen
+- [ ] ääniefektien ja taustamusiikin lisääminen
+- [ ] kaksinpeli sovellusta vastaan
+- [ ] kaksinpeli toista pelaajaa vastaan
+- [ ] top-listat
+- [ ] verkkopelitoiminnallisuuden lisääminen

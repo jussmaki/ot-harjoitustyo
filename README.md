@@ -25,6 +25,9 @@ mvn jacoco:report
 ```
 
 ## Dokumentaatio
+
+[Arkkitehtuuri](dokumentointi/arkkitehtuuri.MD)
+
 [Vaatimustenmäärittely](dokumentointi/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](dokumentointi/tuntikirjanpito.md)

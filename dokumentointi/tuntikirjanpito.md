@@ -4,6 +4,7 @@
 | :----:|:-----| :-----|
 | 23.3. | 1    | aiheen valinta, vaatimustenmäärittely |
 | 24.3. | 4    | vaatimustenmäärittely, määrittelydokumentti, projektin aloitus |
-| 31.3  | 5    | pelin logiikka, yksikkötestejä, käyttöliittymän aloitus |
-| 7.4   | 11,5  | pelin logiikka, pelin käyttöliittymä, yksikkötestejä, luokkakaavio arkkitehtuurista |
-| yht   | 21,5  | | 
+| 31.3.  | 5    | pelin logiikka, yksikkötestejä, käyttöliittymän aloitus |
+| 7.4.   | 11,5  | pelin logiikka, pelin käyttöliittymä, yksikkötestejä, luokkakaavio arkkitehtuurista |
+| 16.4.   | 5,5  | suunnittelua, pelin tulosten tallennuksen aloitus, projektin konfigurointia |
+| yht   | 27  | | 

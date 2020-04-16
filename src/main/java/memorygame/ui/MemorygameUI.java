@@ -19,16 +19,31 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import memorygame.dao.FileScoreDao;
+import memorygame.domain.ScoreService;
 import memorygame.logics.Card;
 import memorygame.logics.Game;
 
 public class MemorygameUI extends Application {
 
+    private ScoreService scoreService;
+    private Game game;
+    private Card[][] gameGrid;
+    
+    @Override
+    public void init() {
+        FileScoreDao scoreDao = new FileScoreDao();
+        scoreService = new ScoreService(scoreDao);
+        
+        game = new Game(4);
+        gameGrid = game.getGrid();
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
 
-        Game game = new Game(4);
-        Card[][] gameGrid = game.getGrid();
+        //Game game = new Game(4);
+        //Card[][] gameGrid = game.getGrid();
         
         //homescreen
         BorderPane homescreen = new BorderPane();
@@ -135,6 +150,11 @@ public class MemorygameUI extends Application {
         stage.show();
        
     }
+    
+    @Override
+    public void stop() {
+      System.out.println("application is shutting down");
+    }    
     
     public static void main(String[] args) {
        launch(MemorygameUI.class);

@@ -37,6 +37,12 @@ mvn package
 java -jar target/Memorygame-1.0-SNAPSHOT.jar
 ```
 
+### JavaDoc dokumentaation generointi
+
+```
+mvn javadoc:javadoc
+```
+
 ## Releaset
 
 [Viikko 4](releases/tag/Week4)

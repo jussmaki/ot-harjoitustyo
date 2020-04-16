@@ -24,9 +24,26 @@ mvn test
 mvn jacoco:report
 ```
 
+### Checkstyleraportin luominen
+
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+
+### Jar tiedoston luominen ja suorittaminen
+
+```
+mvn package
+java -jar target/Memorygame-1.0-SNAPSHOT.jar
+```
+
+## Releaset
+
+[Viikko 4](releases/tag/Week4)
+
 ## Dokumentaatio
 
-[Arkkitehtuuri](dokumentointi/arkkitehtuuri.MD)
+[Arkkitehtuuri](dokumentointi/arkkitehtuuri.md)
 
 [Vaatimustenmäärittely](dokumentointi/vaatimusmaarittely.md)
 

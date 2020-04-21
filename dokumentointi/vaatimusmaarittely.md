@@ -14,7 +14,7 @@ Peli: näkymä, jossa itse peli tapahtuu.
 
 ### Toiminnallisuudet alkuvalikossa
 
-- [ ] pelaaja voi valita pelilaudan koon (parien määrän)
+- [x] pelaaja voi valita pelilaudan koon (parien määrän)
 
 - [x] pelaaja voi aloittaa uuden pelin
 

@@ -7,4 +7,5 @@
 | 31.3.  | 5    | pelin logiikka, yksikkötestejä, käyttöliittymän aloitus |
 | 7.4.   | 11,5  | pelin logiikka, pelin käyttöliittymä, yksikkötestejä, luokkakaavio arkkitehtuurista |
 | 16.4.   | 5,5  | suunnittelua, pelin tulosten tallennuksen aloitus, projektin konfigurointia |
-| yht   | 27  | | 
+| 21.4.   | 7  | pelilaudan koon valinnan toteutus, pelin logiikka, pelin käyttöliittymä, yksikkötestejä, sekvenssikaavion laatiminen |
+| yht   | 34  | | 

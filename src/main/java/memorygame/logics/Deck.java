@@ -9,10 +9,10 @@ public class Deck {
     public Deck(int size) {
         this.cards = new ArrayList<>();
         int id = 0;
-        for (int i = 0; i < size * size / 2; i++) {
-            this.cards.add(new Card(id, i));
+        for (int i = 0; i < size; i++) {
+            this.cards.add(new Card(id, i + 1));
             id++;
-            this.cards.add(new Card(id, i));
+            this.cards.add(new Card(id, i + 1));
             id++;
         }
         Collections.shuffle(cards);

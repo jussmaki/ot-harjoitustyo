@@ -3,7 +3,8 @@ package memorygame.logics;
 public class Game {
     private Deck deck;
     private Card[][] grid;
-    private int gridSize;
+    private int gridSizeX;
+    private int gridSizeY;
     private int tries;
     private int pairsFound;
     private int pairsTotal;
@@ -12,53 +13,58 @@ public class Game {
     private boolean firstCardClicked;
     private Guess guess;
 
-    public Game(int size) {
+    public Game(int gridSizeX, int gridSizeY) {
 
-        this.gridSize = size;
+        //this.gridSize = size;
+        this.gridSizeX = gridSizeX;
+        this.gridSizeY = gridSizeY;
         //initializing counters
         this.tries = 0;
         this.pairsFound = 0;
-        this.pairsTotal = size * size / 2;
+        this.pairsTotal = gridSizeX * gridSizeY / 2;
         this.startTime = System.nanoTime();
         //creating and shuffling new deck
-        this.deck = new Deck(size);
+        this.deck = new Deck(this.pairsTotal);
         //placing cards in board
-        this.grid = new Card[size][size];
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
+        this.grid = new Card[gridSizeX][gridSizeY];
+        for (int x = 0; x < gridSizeX; x++) {
+            for (int y = 0; y < gridSizeY; y++) {
                 this.grid[x][y] = this.deck.getCards().get(0);
                 this.deck.getCards().remove(0);
-                //System.out.println(this.grid[x][y]);
+                //System.out.println(this.grid[x][y].getNumber());
             }
         }
+        this.guess = new Guess();
     }
     
-    public void handleAction(int x, int y) {
-        System.out.println("player clicked, x: " + x + " y: " + y);
+    public int handleAction(int x, int y) {
+        //printGrid();
+        System.out.println("player clicked, x: " + x + " y: " + y + " card: " + this.grid[x][y].toString());
         System.out.println("tries: " + this.tries);
         if (!firstCardClicked) {
             firstCardClicked = true;
             this.startTime = System.nanoTime();            
         }
-        if (this.guess == null) { //no selected card
-            this.guess = new Guess();
-        }
         System.out.println("cards selected: " + this.guess.getCardsSelected());
         if (this.guess.getCardsSelected() < 1) { //selecting first card
             this.guess.addGuess(this.grid[x][y]);
-            return;
+            return this.guess.getCardsSelected();
+        } else if (!this.guess.addGuess(this.grid[x][y])) { //if selecting second card ok, then check if selected cards are pair, otherwise return
+            return 1;
         }
-        if (!this.guess.addGuess(this.grid[x][y])) { //if selecting second card ok, then check if selected cards are pair
-            return;
-        }
+        boolean foundPair = false;
         if (this.guess.match()) {
             this.pairsFound++;
+            foundPair = true;
         }
         this.tries++;
-        this.guess = null;
         if (!gameInProgress()) {
             this.stopTime = System.nanoTime();
         }
+        if (foundPair) {
+            return 3;
+        }
+        return 2;
     }
     
     public boolean gameInProgress() {
@@ -87,8 +93,12 @@ public class Game {
         this.grid = grid;
     }
 
-    public int getGridSize() {
-        return gridSize;
+    public int getGridSizeX() {
+        return gridSizeX;
+    }
+
+    public int getGridSizeY() {
+        return gridSizeY;
     }
         
     public int getPlayTime() {
@@ -100,11 +110,15 @@ public class Game {
         }
         return (int) ((System.nanoTime() - this.startTime) / 1e9);
     }
-    
+
+    public Guess getGuess() {
+        return guess;
+    }
+        
     public void printGrid() {
-        for (int x = 0; x < this.grid.length; x++) {
-            for (int y = 0; y < this.grid.length; y++) {
-                System.out.print(this.grid[x][y] + " ");
+        for (int y = 0; y < this.gridSizeY; y++) {
+            for (int x = 0; x < this.gridSizeX; x++) {
+                System.out.print(this.grid[x][y].getNumber() + " ");
             }
             System.out.println("");
         }

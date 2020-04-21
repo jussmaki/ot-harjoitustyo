@@ -49,5 +49,10 @@ public class Card {
     public void setFound(boolean found) {
         this.found = found;
     }
+    
+    @Override
+    public String toString() {
+        return "Card{" + "id=" + id + ", number=" + number + ", faceDown=" + faceDown + ", found=" + found + '}';
+    }    
 
 }

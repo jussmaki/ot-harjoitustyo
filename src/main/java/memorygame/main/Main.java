@@ -1,4 +1,4 @@
-package memorygame;
+package memorygame.main;
 
 import memorygame.ui.MemorygameUI;
 

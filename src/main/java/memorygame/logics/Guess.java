@@ -34,13 +34,15 @@ public class Guess {
     }
     
     public boolean match() {
-        if (this.cardsSelected == 2 && this.card1.getNumber() == this.card2.getNumber()) {
+        if (this.cardsSelected == 2 && this.card1.getNumber() == this.card2.getNumber()) { //pair found
             this.card1.setFound(true);
             this.card2.setFound(true);
+            this.cardsSelected = 0;
             return true;
         }
-        this.card1.setFaceDown(true);
+        this.card1.setFaceDown(true); //pair not found
         this.card2.setFaceDown(true);
+        this.cardsSelected = 0;
         return false;
     }
 

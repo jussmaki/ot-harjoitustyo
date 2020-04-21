@@ -1,5 +1,5 @@
 
-package memorygame.domain;
+package memorygame.logics;
 
 import memorygame.dao.ScoreDao;
 

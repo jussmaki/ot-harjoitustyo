@@ -38,8 +38,7 @@ java -jar target/Memorygame-1.0-SNAPSHOT.jar
 ```
 
 ## Releaset
-
-[Viikko 5](releases/tag/Week5)
+[Viikko 5](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/Week5)
 
 ## Dokumentaatio
 

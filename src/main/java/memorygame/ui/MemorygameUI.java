@@ -1,5 +1,7 @@
 package memorygame.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Application;
@@ -25,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import memorygame.dao.FileScoreDao;
+import memorygame.dao.Score;
 import memorygame.logics.ScoreService;
 import memorygame.logics.Card;
 import memorygame.logics.Game;
@@ -39,7 +42,7 @@ public class MemorygameUI extends Application {
     private boolean clickedTwoCardsNoMatch = false;
     
     @Override
-    public void init() {
+    public void init() throws Exception {
         FileScoreDao scoreDao = new FileScoreDao();
         scoreService = new ScoreService(scoreDao);
     }
@@ -88,7 +91,14 @@ public class MemorygameUI extends Application {
         Button newGameButton = new Button("New game!");
         Button quitButton = new Button("Quit");
         Label pairsInGameText = new Label ("Pairs in game: " + (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2);
-        VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton);
+        
+        String topScores = "top times:\n";
+        List<Score> allScores = scoreService.getAll();
+        for (Score s : allScores) {
+            topScores = topScores + s.getName() + " time: " + s.getTime() + " pairs: " + s.getTotalPairs() + "\n";
+        }
+        Label topTimes = new Label(topScores); 
+        VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton, topTimes);
         homescreen.setTop(hsButtons);
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
@@ -223,6 +233,7 @@ public class MemorygameUI extends Application {
         information.setHeaderText("game ended with " + game.getTries() + " tries.");
         information.setContentText(game.getPlayTime() + " seconds");
         information.setTitle("The end.");
+        scoreService.addNewScore("", game.getTries(), game.getTries(), game.getPairsTotal());
         information.setOnCloseRequest((javafx.scene.control.DialogEvent eh) -> {
             timeTimer.cancel();
             //stage.close();

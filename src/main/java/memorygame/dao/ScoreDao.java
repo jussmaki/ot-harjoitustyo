@@ -5,4 +5,5 @@ import java.util.List;
 public interface ScoreDao {
     void create(Score score);
     List<Score> getAll();
+    void removeByName(String name);
 }

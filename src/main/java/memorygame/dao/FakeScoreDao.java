@@ -20,5 +20,10 @@ public class FakeScoreDao implements ScoreDao {
     public List<Score> getAll() {
         return this.scores;
     }
+
+    @Override
+    public void removeByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

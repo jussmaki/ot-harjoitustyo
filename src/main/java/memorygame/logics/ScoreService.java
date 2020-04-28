@@ -1,6 +1,8 @@
 
 package memorygame.logics;
 
+import java.util.List;
+import memorygame.dao.Score;
 import memorygame.dao.ScoreDao;
 
 public class ScoreService {
@@ -13,7 +15,11 @@ public class ScoreService {
         //this.otherDao = otherDao;
     }
     
-    public boolean addNewScore(String name, int tries, int time, int gridSize) {
-        return false;
-    }    
+    public void addNewScore(String name, int tries, int time, int gridSize) {
+        scoreDao.create(new Score(name, tries, time, gridSize));
+    }
+    
+    public List<Score> getAll() {
+        return scoreDao.getAll();
+    }
 }

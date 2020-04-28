@@ -13,7 +13,7 @@ public class Guess {
     }
    /**
     * Metodi lisää käyttäjän valitseman kortin arvaukseksi
-    * @param kortti 
+    * @param Card valittu kortti 
     * @return kortin valinta onnistui/ei onnistunut
     */
     public boolean addGuess(Card card) {

@@ -16,7 +16,10 @@ public class ScoreService {
     }
    /**
     * Metodi tallentaa pelituloksen
-    * @param nimi, käännettyjä kortteja löytämättä paria, aika, pelilaudan koko
+    * @param name nimi
+    * @param tries, käännettyjä kortteja löytämättä paria
+    * @param time aika
+    * @param gridSize pelilaudan koko
     */
     public void addNewScore(String name, int tries, int time, int gridSize) {
         scoreDao.create(new Score(name, tries, time, gridSize));

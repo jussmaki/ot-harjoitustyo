@@ -44,9 +44,9 @@ mvn javadoc:javadoc
 ```
 
 ## Releaset
+
 [Viikko 6](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/Week6)
 
-## Releaset
 [Viikko 5](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/Week5)
 
 ## Dokumentaatio

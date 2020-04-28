@@ -14,11 +14,19 @@ public class ScoreService {
         this.scoreDao = scoreDao;
         //this.otherDao = otherDao;
     }
-    
+   /**
+    * Metodi tallentaa pelituloksen
+    * @param nimi, käännettyjä kortteja löytämättä paria, aika, pelilaudan koko
+    */
     public void addNewScore(String name, int tries, int time, int gridSize) {
         scoreDao.create(new Score(name, tries, time, gridSize));
     }
     
+    /**
+    * Metodi palauttaa kaikki pelitulokset listana
+    * 
+    * @return pelitulokset
+    */
     public List<Score> getAll() {
         return scoreDao.getAll();
     }

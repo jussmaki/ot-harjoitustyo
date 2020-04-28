@@ -36,5 +36,5 @@ Pelin perustoiminnallisuuksien toteuttamisen jälkeen peliä voi täydentää es
 - [ ] ääniefektien ja taustamusiikin lisääminen
 - [ ] kaksinpeli sovellusta vastaan
 - [ ] kaksinpeli toista pelaajaa vastaan
-- [ ] top-listat
+- [x] top-listat
 - [ ] verkkopelitoiminnallisuuden lisääminen

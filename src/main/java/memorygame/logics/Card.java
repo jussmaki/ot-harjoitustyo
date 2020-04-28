@@ -34,6 +34,11 @@ public class Card {
         return number;
     }
 
+    /**
+    * Metodi palauttaa tiedon siitä onko kortti kuvapuoli alaspäin
+    * 
+    * @return kuvapuoli alaspäin
+    */
     public boolean isFaceDown() {
         return faceDown;
     }
@@ -41,7 +46,12 @@ public class Card {
     public void setFaceDown(boolean faceDown) {
         this.faceDown = faceDown;
     }
-
+    
+    /**
+    * Metodi palauttaa tiedon siitä onko kortille löytynyt pari
+    * 
+    * @return onko kortille löytynyt pari
+    */
     public boolean isFound() {
         return found;
     }

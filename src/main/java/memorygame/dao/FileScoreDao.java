@@ -51,12 +51,12 @@ public class FileScoreDao implements ScoreDao {
         try {
             points = csvReader.readAll();
             for (String[] point : points) {
-              scores.add(new Score(point[0], Integer.valueOf(point[1]), Integer.valueOf(point[2]), Integer.valueOf(point[3])));   
+                scores.add(new Score(point[0], Integer.valueOf(point[1]), Integer.valueOf(point[2]), Integer.valueOf(point[3])));   
             }
         } catch (Exception e) {
             Logger.getLogger(FileScoreDao.class.getName()).log(Level.SEVERE, null, e);
         }
-            return scores;
+        return scores;
     }
     
     public void removeByName(String name) {
@@ -74,9 +74,6 @@ public class FileScoreDao implements ScoreDao {
             fileWriter.write("");
             try (CSVWriter writer = new CSVWriter(fileWriter)) {
                 writer.writeAll(scores);
-                writer.close();
-            } catch (Exception e) {
-
             }
         } catch (Exception e) {
             Logger.getLogger(FileScoreDao.class.getName()).log(Level.SEVERE, null, e);

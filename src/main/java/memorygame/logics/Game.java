@@ -36,7 +36,11 @@ public class Game {
         }
         this.guess = new Guess();
     }
-    
+    /**
+    * Metodi hoitaa kaikkien pelitapahtumien logiikan käsittelyn
+    * 
+    * @return 1-2 = valittujen korttien lukumäärä, 3 = löytyi pari.
+    */    
     public int handleAction(int x, int y) {
         //printGrid();
         System.out.println("player clicked, x: " + x + " y: " + y + " card: " + this.grid[x][y].toString());
@@ -66,7 +70,11 @@ public class Game {
         }
         return 2;
     }
-    
+    /**
+    * Metodi palauttaa tiedon siitä onko peli käynnissä
+    * 
+    * @return peli käynnissä
+    */
     public boolean gameInProgress() {
         if (this.pairsFound < this.pairsTotal) {
             return true;

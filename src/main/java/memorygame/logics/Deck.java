@@ -17,7 +17,11 @@ public class Deck {
         }
         Collections.shuffle(cards);
     }
-
+    /**
+    * Metodi palauttaa kaikki pakan kortit
+    * 
+    * @return kaikki kortit
+    */
     public ArrayList<Card> getCards() {
         return this.cards;
     } 

@@ -58,8 +58,6 @@ public class Score implements Comparable<Score> {
         return true;
     }
     
-    
-
     @Override
     public String toString() {
         return "Score{" + "name=" + name + ", tries=" + tries + ", time=" + time + ", totalPairs=" + totalPairs + '}';
@@ -67,7 +65,7 @@ public class Score implements Comparable<Score> {
 
     @Override
     public int compareTo(Score t) {
-        return this.time-t.time;
+        return this.time - t.time;
     }
      
 }

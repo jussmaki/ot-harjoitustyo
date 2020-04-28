@@ -11,7 +11,11 @@ public class Guess {
         this.card2 = null;
         this.cardsSelected = 0;
     }
-    
+   /**
+    * Metodi lisää käyttäjän valitseman kortin arvaukseksi
+    * @param kortti 
+    * @return kortin valinta onnistui/ei onnistunut
+    */
     public boolean addGuess(Card card) {
         if (card.isFound() || !card.isFaceDown()) {
             return false;
@@ -32,7 +36,11 @@ public class Guess {
         }
         return false;
     }
-    
+    /**
+    * Metodi vertaa valittuja kortteja toisiinsa ja palauttaa tiedon siitä löytyikö pari
+    * 
+    * @return löytyikö pari vai ei
+    */
     public boolean match() {
         if (this.cardsSelected == 2 && this.card1.getNumber() == this.card2.getNumber()) { //pair found
             this.card1.setFound(true);

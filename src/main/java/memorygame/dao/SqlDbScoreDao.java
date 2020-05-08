@@ -45,20 +45,28 @@ public class SqlDbScoreDao implements ScoreDao {
         createDatabaseIfNotExists();
     }
 
+    public SqlDbScoreDao(String driverName, String dbFile) {
+        this.driverName = driverName;
+        this.dbFile = dbFile;
+        createDatabaseIfNotExists();
+    }
+    
+    
+
     @Override
     public void create(Score score) {
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-           PreparedStatement stmt = dbConn.prepareStatement("INSERT INTO Score (player, tries, total_time, total_pairs) VALUES (?, ?, ?, ?);");
-           stmt.setString(1, score.getName());
-           stmt.setInt(2, score.getTries());
-           stmt.setInt(3, score.getTime());
-           stmt.setInt(4, score.getTotalPairs());
-           stmt.executeUpdate();
-           stmt.close();
-           dbConn.close();
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stmt = dbConn.prepareStatement("INSERT INTO Score (player, tries, total_time, total_pairs) VALUES (?, ?, ?, ?);");
+            stmt.setString(1, score.getName());
+            stmt.setInt(2, score.getTries());
+            stmt.setInt(3, score.getTime());
+            stmt.setInt(4, score.getTotalPairs());
+            stmt.executeUpdate();
+            stmt.close();
+            dbConn.close();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,14 +76,13 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getAll() {
         List<Score> scores = new ArrayList<>();
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             Statement stmt = dbConn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Score;");
-            while ( rs.next() ) {
+            while (rs.next()) {
                 Score score = new Score(rs.getString("player"), rs.getInt("tries"), rs.getInt("total_time"), rs.getInt("total_pairs"));
-                System.out.println(score);
                 scores.add(score);
             }
             stmt.close();
@@ -86,19 +93,19 @@ public class SqlDbScoreDao implements ScoreDao {
         }
         return scores;
     }
+    
     @Override
     public List<Score> getAll(int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-           PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score ORDER BY tries ASC LIMIT ?;");
-           stmt.setInt(1, limit);
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score ORDER BY tries ASC LIMIT ?;");
+            stmt.setInt(1, limit);
             ResultSet rs = stmt.executeQuery();
-            while ( rs.next() ) {
+            while (rs.next()) {
                 Score score = new Score(rs.getString("player"), rs.getInt("tries"), rs.getInt("total_time"), rs.getInt("total_pairs"));
-                System.out.println(score);
                 scores.add(score);
             }
             stmt.close();
@@ -111,19 +118,18 @@ public class SqlDbScoreDao implements ScoreDao {
     }
     
     @Override
-    public List<Score> getScoresByTotalPairsOrderByTime (int totalPairs, int limit) {
+    public List<Score> getScoresByTotalPairsOrderByTime(int totalPairs, int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-           PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY total_time ASC LIMIT ?;");
-           stmt.setInt(1, totalPairs);
-           stmt.setInt(2, limit);
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY total_time ASC LIMIT ?;");
+            stmt.setInt(1, totalPairs);
+            stmt.setInt(2, limit);
             ResultSet rs = stmt.executeQuery();
-            while ( rs.next() ) {
+            while (rs.next()) {
                 Score score = new Score(rs.getString("player"), rs.getInt("tries"), rs.getInt("total_time"), rs.getInt("total_pairs"));
-                System.out.println(score);
                 scores.add(score);
             }
             stmt.close();
@@ -139,14 +145,14 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getScoresByTotalPairsOrderByTries(int totalPairs, int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-           PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY tries ASC LIMIT ?;");
-           stmt.setInt(1, totalPairs);
-           stmt.setInt(2, limit);
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY tries ASC LIMIT ?;");
+            stmt.setInt(1, totalPairs);
+            stmt.setInt(2, limit);
             ResultSet rs = stmt.executeQuery();
-            while ( rs.next() ) {
+            while (rs.next()) {
                 Score score = new Score(rs.getString("player"), rs.getInt("tries"), rs.getInt("total_time"), rs.getInt("total_pairs"));
                 System.out.println(score);
                 scores.add(score);
@@ -163,9 +169,9 @@ public class SqlDbScoreDao implements ScoreDao {
     @Override
     public void removeByName(String name) {
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite: " + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("DELETE FROM Score WHERE player=?;");
             stmt.setString(1, name);
             stmt.executeUpdate();
@@ -176,12 +182,26 @@ public class SqlDbScoreDao implements ScoreDao {
         }
     }    
 
+    @Override
+    public void removeAllScores() {
+        try {
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stmt = dbConn.prepareStatement("DELETE FROM Score;");
+            stmt.executeUpdate();
+            stmt.close();
+            dbConn.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
     private void createDatabaseIfNotExists() {
         try {
-           Connection dbConn;
-           Class.forName(driverName);
-           dbConn = DriverManager.getConnection("jdbc:sqlite:"+dbFile);
-           
+            Connection dbConn;
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);           
             dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    player TEXT NOT NULL,\n" +
@@ -196,5 +216,5 @@ public class SqlDbScoreDao implements ScoreDao {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }    
 }

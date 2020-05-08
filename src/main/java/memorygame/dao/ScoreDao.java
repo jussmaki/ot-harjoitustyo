@@ -9,4 +9,5 @@ public interface ScoreDao {
     List<Score> getScoresByTotalPairsOrderByTime(int totalPairs, int limit);
     List<Score> getScoresByTotalPairsOrderByTries(int totalPairs, int limit);
     void removeByName(String name);
+    void removeAllScores();
 }

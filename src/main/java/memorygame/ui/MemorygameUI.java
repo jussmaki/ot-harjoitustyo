@@ -44,7 +44,6 @@ public class MemorygameUI extends Application {
     
     @Override
     public void init() throws Exception {
-        //FileScoreDao scoreDao = new FileScoreDao();
         SqlDbScoreDao scoreDao = new SqlDbScoreDao();
         scoreService = new ScoreService(scoreDao);
     }

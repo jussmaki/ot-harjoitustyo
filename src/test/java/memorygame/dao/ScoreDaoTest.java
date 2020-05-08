@@ -1,7 +1,9 @@
 
 package memorygame.dao;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,21 +17,99 @@ public class ScoreDaoTest {
     
     @Before
     public void setUp() throws IOException {
-        //scoreDao = new FileScoreDao();
+        scoreDao = new SqlDbScoreDao("org.sqlite.JDBC", "test.db");
+        scoreDao.removeAllScores();
     }
     
-    /*@Test
+    @After
+    public void removeTestDbFile() {
+        File testDb = new File("test.db");
+        testDb.delete();
+    }
+    
+    @Test
+    public void atStartThereAreNoScoresInDb() {
+        assertTrue (scoreDao.getAll().isEmpty());
+    }
+    
+    @Test
     public void scoreCanBeAdded() {
+        scoreDao.removeAllScores();
         Score s = new Score ("ddtesti", 2, 1, 2);
         scoreDao.create(s);
         assertTrue(scoreDao.getAll().contains(s));
-    }*/
+    }
     
     /*@Test
     public void scoreCanBeRemoved() {
-        Score s = new Score ("ddtesti", 2, 1, 2);
+        scoreDao.removeAllScores();        
+        Score s = new Score ("testi123", 2, 1, 2);
+        scoreDao.create(s);
         assertTrue(scoreDao.getAll().contains(s));
         scoreDao.removeByName(s.getName());
         assertFalse(scoreDao.getAll().contains(s));
-    }*/    
+    }*/
+
+    @Test
+    public void correctCountOfScoresAreReturnedWhenThereAreGivenLimitTest1() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i, i, i));
+        }
+        assertEquals(scoreDao.getAll(10).size(), 10);
+    }
+    @Test
+    public void correctCountOfScoresAreReturnedWhenThereAreGivenLimitTest2() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i, i, i));
+        }
+        assertEquals(scoreDao.getAll(20).size(), 20);
+    }
+    
+    @Test
+    public void getScoresByTotalPairsOrderByTimeLimitWorksTest() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i, i, 64));
+        }
+        List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTime(64, 10);
+        assertEquals(scores.size(), 10);
+    }
+    
+    @Test
+    public void getScoresByTotalPairsOrderByTimeCorrectOrderTest() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i, i*2, 16));
+        }
+        List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTime(16, 10);
+        for (int i=0; i<10; i++) {
+            assertEquals(scores.get(i).getTime(), i*2);
+            assertEquals(scores.get(i).getName(), "player"+i);
+        }
+    }
+    
+    @Test
+    public void getScoresByTotalPairsOrderByTriesLimitWorksTest() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i, i, 32));
+        }
+        List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTries(32, 10);
+        assertEquals(scores.size(), 10);
+    }
+    
+    @Test
+    public void getScoresByTotalPairsOrderByTriesCorrectOrderTest() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i^i, i, 16));
+        }
+        List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTries(16, 10);
+        for (int i=0; i<10; i++) {
+            assertEquals(scores.get(i).getTries(), i^i);
+            assertEquals(scores.get(i).getName(), "player"+i);
+        }
+    }    
 }

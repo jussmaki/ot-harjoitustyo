@@ -3,4 +3,6 @@
 /laskarit/viikko2/Unicafe/target/
 /target/
 /nbproject/
-/points.csv
+/points.db
+/dbconfig.properties
+/*.db

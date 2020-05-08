@@ -1,6 +1,5 @@
 package memorygame.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -26,8 +26,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import memorygame.dao.FileScoreDao;
 import memorygame.dao.Score;
+import memorygame.dao.SqlDbScoreDao;
 import memorygame.logics.ScoreService;
 import memorygame.logics.Card;
 import memorygame.logics.Game;
@@ -37,13 +37,15 @@ public class MemorygameUI extends Application {
     private ScoreService scoreService;
     private Game game;
     private Card[][] gameGrid;
+    private int pairsInGame;
     private Scene start;
     private Timer timeTimer;
     private boolean clickedTwoCardsNoMatch = false;
     
     @Override
     public void init() throws Exception {
-        FileScoreDao scoreDao = new FileScoreDao();
+        //FileScoreDao scoreDao = new FileScoreDao();
+        SqlDbScoreDao scoreDao = new SqlDbScoreDao();
         scoreService = new ScoreService(scoreDao);
     }
     
@@ -90,25 +92,31 @@ public class MemorygameUI extends Application {
         HBox options = new HBox(comboBoxX, new Label("X"), comboBoxY);
         Button newGameButton = new Button("New game!");
         Button quitButton = new Button("Quit");
-        Label pairsInGameText = new Label ("Pairs in game: " + (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2);
-        
-        String topScores = "top times:\n";
-        List<Score> allScores = scoreService.getAll();
-        for (Score s : allScores) {
-            topScores = topScores + s.getName() + " time: " + s.getTime() + " pairs: " + s.getTotalPairs() + "\n";
-        }
-        Label topTimes = new Label(topScores); 
-        VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton, topTimes);
-        homescreen.setTop(hsButtons);
+        pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
+        Label pairsInGameText = new Label ("Pairs in game: " + pairsInGame);
+        Label topScoresByTime = new Label(updateToplistsByTime(pairsInGame));
+        Label topScoresByTries = new Label(updateToplistsByTries(pairsInGame));
+        BorderPane toplists = new BorderPane();
+        toplists.setLeft(topScoresByTime);
+        toplists.setRight(topScoresByTries);
+        VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton);
+        homescreen.setLeft(hsButtons);
+        homescreen.setRight(toplists);
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
-
+        
         comboBoxX.setOnAction((event) -> {
-            pairsInGameText.setText("Pairs in game: " + (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2);
+            pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
+            pairsInGameText.setText("Pairs in game: " + pairsInGame);
+            topScoresByTime.setText(updateToplistsByTime(pairsInGame));
+            topScoresByTries.setText(updateToplistsByTries(pairsInGame));            
         });
         
         comboBoxY.setOnAction((event) -> {
-            pairsInGameText.setText("Pairs in game: " + (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2);
+            pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
+            pairsInGameText.setText("Pairs in game: " + pairsInGame);
+            topScoresByTime.setText(updateToplistsByTime(pairsInGame));
+            topScoresByTries.setText(updateToplistsByTries(pairsInGame));     
         });
         
         //action handler for new game from menu
@@ -123,17 +131,36 @@ public class MemorygameUI extends Application {
         
         newGameButton.setOnAction((event) -> {
             newGame(stage, (int) comboBoxX.getValue(), (int) comboBoxY.getValue());
-        });
-        
-        //stopping timer
-        /*stage.setOnCloseRequest((event) -> {
-            //timeTimer.cancel();
-        });*/        
+        });       
         
         //show homescreen first
         stage.setScene(start);
         stage.show();
        
+    }
+    
+    private String updateToplistsByTime(int pairsInGame) {
+        String topScores = "Top scores by time:\n";
+        List<Score> scoresByTime = scoreService.getTopTenByTime(pairsInGame);
+        if (scoresByTime.isEmpty()) {
+            return topScores + "No saved scores with " + pairsInGame + " pairs in game"; 
+        }
+        for (Score s : scoresByTime) {
+            topScores = topScores + s.getName() + " time: " + s.getTime() + "\n";
+        }
+        return topScores;
+    }    
+    
+    private String updateToplistsByTries(int pairsInGame) {
+        String topScores = "top scores by tries:\n";
+        List<Score> scoresByTries = scoreService.getTopTenByTries(pairsInGame);
+        if (scoresByTries.isEmpty()) {
+            return topScores + "No saved scores with " + pairsInGame + " pairs in game"; 
+        }
+        for (Score s : scoresByTries) {
+            topScores = topScores + s.getName() + " tries: " + s.getTries() + "\n";
+        }
+        return topScores;
     }
     
     private void newGame(Stage stage, int gridSizeX, int gridSizeY) {
@@ -233,15 +260,50 @@ public class MemorygameUI extends Application {
         information.setHeaderText("game ended with " + game.getTries() + " tries.");
         information.setContentText(game.getPlayTime() + " seconds");
         information.setTitle("The end.");
-        scoreService.addNewScore("", game.getTries(), game.getTries(), game.getPairsTotal());
+        //scoreService.addNewScore("testi", game.getTries(), game.getTries(), game.getPairsTotal());
         information.setOnCloseRequest((javafx.scene.control.DialogEvent eh) -> {
             timeTimer.cancel();
-            //stage.close();
-            stage.setScene(start);
+            Label nameLabel = new Label("Name:");
+            TextField nameField = new TextField();
+            String player = System.getProperty("player");
+            if (player != null) {
+                nameField.setText(player);
+            }
+            HBox hb = new HBox();
+            hb.getChildren().addAll(nameLabel, nameField);
+            //hb.setSpacing(10);
+            Button sendButton = new Button();
+            Button quitToMenuButton = new Button();
+            sendButton.setText("Add score!");
+            quitToMenuButton.setText("Quit to menu");
+            Label topScoresByTime = new Label(updateToplistsByTime(game.getPairsTotal()));
+            Label topScoresByTries = new Label(updateToplistsByTries(game.getPairsTotal()));
+            Label scoreLabel = new Label("You found all " + game.getPairsTotal() + " pairs in " + game.getPlayTime() + " seconds with " + game.getTries() + " tries.");
+            BorderPane toplists = new BorderPane();
+            toplists.setLeft(topScoresByTime);
+            toplists.setRight(topScoresByTries);
+            VBox addScoreScreen = new VBox(new Label("Enter name for scorelist:"), hb, scoreLabel, new HBox(sendButton, quitToMenuButton), toplists);
+            sendButton.setOnAction((event) -> {
+                if (!nameField.getText().equals("") && nameField.getText().length() <= 30) {
+                    scoreService.addNewScore(nameField.getText(), game.getTries(), game.getTries(), game.getPairsTotal());
+                    System.setProperty("player", nameField.getText());
+                    stage.setScene(start);
+                } else {        
+                    Alert nameLengthError = new Alert(AlertType.INFORMATION);
+                    nameLengthError.setHeaderText("Name validation error");
+                    nameLengthError.setContentText("Enter name between 1-30 characters or press Quit to menu button");
+                    nameLengthError.setTitle("Enter name");
+                    nameLengthError.show();
+                }
+            });
+            quitToMenuButton.setOnAction((event) -> {
+                stage.setScene(start);
+            });
+            stage.setScene(new Scene(addScoreScreen));
         });
         information.show();
     }
-    
+
     @Override
     public void stop() {
       if (timeTimer != null) {

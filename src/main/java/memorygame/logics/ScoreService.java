@@ -33,4 +33,12 @@ public class ScoreService {
     public List<Score> getAll() {
         return scoreDao.getAll();
     }
+    
+    public List<Score> getTopTenByTime(int totalPairs) {
+        return scoreDao.getScoresByTotalPairsOrderByTime(totalPairs, 10);
+    }
+    
+    public List<Score> getTopTenByTries(int totalPairs) {
+        return scoreDao.getScoresByTotalPairsOrderByTries(totalPairs, 10);
+    }    
 }

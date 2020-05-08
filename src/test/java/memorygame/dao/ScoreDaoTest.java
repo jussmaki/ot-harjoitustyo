@@ -15,15 +15,15 @@ public class ScoreDaoTest {
     
     @Before
     public void setUp() throws IOException {
-        scoreDao = new FileScoreDao();
+        //scoreDao = new FileScoreDao();
     }
     
-    @Test
+    /*@Test
     public void scoreCanBeAdded() {
         Score s = new Score ("ddtesti", 2, 1, 2);
         scoreDao.create(s);
         assertTrue(scoreDao.getAll().contains(s));
-    }
+    }*/
     
     /*@Test
     public void scoreCanBeRemoved() {

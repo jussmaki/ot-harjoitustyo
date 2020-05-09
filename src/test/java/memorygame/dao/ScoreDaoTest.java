@@ -16,17 +16,8 @@ public class ScoreDaoTest {
     @Before
     public void setUp() {
         dbDriver = "org.sqlite.JDBC";
-        dbFile = "test.db";
-        removeTestDbFile();
+        dbFile = ":memory:"; //using in-memory database for testing
         scoreDao = new SqlDbScoreDao(dbDriver, dbFile);
-    }
-    
-    @After
-    public void removeTestDbFile() {
-        File testDb = new File(dbFile);
-        if (testDb.exists()) {
-            testDb.delete();
-        }
     }
     
     @Test

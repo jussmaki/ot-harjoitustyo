@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 public class SqlDbScoreDao implements ScoreDao {
 
+    private Connection dbConn;
     private String driverName;
     private String dbFile;
     private String propertiesFile = "dbconfig.properties";
@@ -42,20 +43,30 @@ public class SqlDbScoreDao implements ScoreDao {
         } catch (IOException ex) { 
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         createDatabaseIfNotExists();
     }
 
     public SqlDbScoreDao(String driverName, String dbFile) {
         this.driverName = driverName;
         this.dbFile = dbFile;
+        try {
+            Class.forName(driverName);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         createDatabaseIfNotExists();
     }
     
     @Override
     public void create(Score score) {
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("INSERT INTO Score (player, tries, total_time, total_pairs) VALUES (?, ?, ?, ?);");
             stmt.setString(1, score.getName());
             stmt.setInt(2, score.getTries());
@@ -63,8 +74,7 @@ public class SqlDbScoreDao implements ScoreDao {
             stmt.setInt(4, score.getTotalPairs());
             stmt.executeUpdate();
             stmt.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -73,8 +83,6 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getAll() {
         List<Score> scores = new ArrayList<>();
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             Statement stmt = dbConn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Score;");
             while (rs.next()) {
@@ -83,8 +91,7 @@ public class SqlDbScoreDao implements ScoreDao {
             }
             stmt.close();
             rs.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return scores;
@@ -94,8 +101,6 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getAll(int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score ORDER BY tries ASC LIMIT ?;");
             stmt.setInt(1, limit);
             ResultSet rs = stmt.executeQuery();
@@ -105,8 +110,7 @@ public class SqlDbScoreDao implements ScoreDao {
             }
             stmt.close();
             rs.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return scores;    
@@ -116,8 +120,6 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getScoresByTotalPairsOrderByTime(int totalPairs, int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY total_time ASC LIMIT ?;");
             stmt.setInt(1, totalPairs);
             stmt.setInt(2, limit);
@@ -128,8 +130,7 @@ public class SqlDbScoreDao implements ScoreDao {
             }
             stmt.close();
             rs.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return scores;
@@ -139,8 +140,6 @@ public class SqlDbScoreDao implements ScoreDao {
     public List<Score> getScoresByTotalPairsOrderByTries(int totalPairs, int limit) {
         List<Score> scores = new ArrayList<>();
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM Score WHERE total_pairs=? ORDER BY tries ASC LIMIT ?;");
             stmt.setInt(1, totalPairs);
             stmt.setInt(2, limit);
@@ -151,8 +150,7 @@ public class SqlDbScoreDao implements ScoreDao {
             }
             stmt.close();
             rs.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return scores;
@@ -161,14 +159,11 @@ public class SqlDbScoreDao implements ScoreDao {
     @Override
     public void removeByName(String name) {
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("DELETE FROM Score WHERE player=?;");
             stmt.setString(1, name);
             stmt.executeUpdate();
             stmt.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
@@ -176,21 +171,16 @@ public class SqlDbScoreDao implements ScoreDao {
     @Override
     public void removeAllScores() {
         try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             PreparedStatement stmt = dbConn.prepareStatement("DELETE FROM Score;");
             stmt.executeUpdate();
             stmt.close();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
     
     private void createDatabaseIfNotExists() {
-        try {
-            Class.forName(driverName);
-            Connection dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);           
+        try {         
             dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    player TEXT NOT NULL,\n" +
@@ -201,8 +191,7 @@ public class SqlDbScoreDao implements ScoreDao {
             dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_id ON Score(id);").executeUpdate();
             dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_player ON Score(player);").executeUpdate();
             dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_total_pairs ON Score(total_pairs);").executeUpdate();
-            dbConn.close();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    

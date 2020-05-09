@@ -1,4 +1,4 @@
-package memorygame.logics;
+package memorygame.service;
 
 import java.util.List;
 import memorygame.dao.Score;

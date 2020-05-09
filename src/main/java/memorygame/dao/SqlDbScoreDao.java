@@ -72,11 +72,8 @@ public class SqlDbScoreDao implements ScoreDao {
             try {
                 file.createNewFile();
                 SQLiteConfig dbConfig = new SQLiteConfig();
-                dbConfig.setBusyTimeout(30000);
-                //dbConfig.setTransactionMode(SQLiteConfig.TransactionMode.EXCLUSIVE);
+                dbConfig.setBusyTimeout(5000);
                 dbConfig.setJournalMode(SQLiteConfig.JournalMode.MEMORY);
-                dbConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
-                //dbConfig.setLockingMode(SQLiteConfig.LockingMode.EXCLUSIVE);
                 dbConfig.toProperties().store(new FileOutputStream(sQLiteConfigFile), null);
                 return dbConfig.toProperties();
             } catch (IOException ex) {
@@ -209,18 +206,16 @@ public class SqlDbScoreDao implements ScoreDao {
     
     private void createDatabaseIfNotExists() {
         try {
-            PreparedStatement stmt = dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
+            dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    player TEXT NOT NULL,\n" +
                 "    tries INTEGER NOT NULL,\n" +
                 "    total_time INTEGER NOT NULL,\n" +
                 "    total_pairs INTEGER NOT NULL\n" +
-                ");");
-            stmt.executeUpdate();
-            stmt.close();
-            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_id ON Score(id);").executeUpdate();
-            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_player ON Score(player);").executeUpdate();
-            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_total_pairs ON Score(total_pairs);").executeUpdate();
+                ");").executeUpdate();
+            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_id ON Score(id);").executeUpdate();
+            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_player ON Score(player);").executeUpdate();
+            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_total_pairs ON Score(total_pairs);").executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }

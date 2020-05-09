@@ -1,5 +1,6 @@
 package memorygame.logics;
 
+import memorygame.service.ScoreService;
 import java.util.List;
 import memorygame.dao.Score;
 import memorygame.dao.ScoreDao;

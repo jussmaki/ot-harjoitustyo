@@ -33,7 +33,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import memorygame.dao.Score;
 import memorygame.dao.SqlDbScoreDao;
-import memorygame.logics.ScoreService;
+import memorygame.service.ScoreService;
 import memorygame.logics.Card;
 import memorygame.logics.Game;
 
@@ -105,10 +105,8 @@ public class MemorygameUI extends Application {
         TabPane toplists = new TabPane();
         Tab byTime = new Tab("Topscores by time", topScoresByTime);
         byTime.setClosable(false);
-        //byTime.setDisable(true);
         Tab byTries = new Tab("TopScores by tries", topScoresByTries);
         byTries.setClosable(false);
-        //byTries.setDisable(true);
         toplists.getTabs().add(byTime);
         toplists.getTabs().add(byTries);
         BorderPane scoreBP = new BorderPane();
@@ -137,16 +135,6 @@ public class MemorygameUI extends Application {
         
         stage.setOnShown((event) -> {
             updateToplists();
-            /*Timer toplistLoadTimer = new Timer();
-            toplistLoadTimer.schedule(new TimerTask(){
-                @Override
-                public void run() {
-                    Platform.runLater(() -> updateToplists());
-                    Platform.runLater(() -> byTime.setDisable(false));
-                    Platform.runLater(() -> byTime.setDisable(false));
-                    toplistLoadTimer.cancel();
-                }
-            }, 1000);*/
         });
         
         //action handler for new game from menu
@@ -184,7 +172,6 @@ public class MemorygameUI extends Application {
     }
     
     private void updateToplists() {
-        System.out.println("nyt");
         topScoresByTime.setText(updateToplistsByTime(pairsInGame));
         topScoresByTries.setText(updateToplistsByTries(pairsInGame));
     }
@@ -302,7 +289,6 @@ public class MemorygameUI extends Application {
     }
      //draw window with statistics
     private void showGameEndWindow(Stage stage) {
-        System.out.println("game end");
         Alert information = new Alert(AlertType.INFORMATION);
         information.setHeaderText("game ended with " + game.getTries() + " tries.");
         information.setContentText(game.getPlayTime() + " seconds");

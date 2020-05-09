@@ -48,10 +48,11 @@ public class SqlDbScoreDao implements ScoreDao {
         try {
             Class.forName(driverName);
             dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile, dbConfig());
+            System.out.println(dbConn.getAutoCommit());
+            createDatabaseIfNotExists();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        createDatabaseIfNotExists();
     }
     
     public SqlDbScoreDao(String driverName, String dbFile) {
@@ -60,10 +61,10 @@ public class SqlDbScoreDao implements ScoreDao {
         try {
             Class.forName(driverName);
             dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            createDatabaseIfNotExists();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        createDatabaseIfNotExists();
     }
     
     private Properties dbConfig() {
@@ -73,10 +74,10 @@ public class SqlDbScoreDao implements ScoreDao {
                 file.createNewFile();
                 SQLiteConfig dbConfig = new SQLiteConfig();
                 dbConfig.setBusyTimeout(30000);
-                dbConfig.setTransactionMode(SQLiteConfig.TransactionMode.EXCLUSIVE);
+                //dbConfig.setTransactionMode(SQLiteConfig.TransactionMode.EXCLUSIVE);
                 dbConfig.setJournalMode(SQLiteConfig.JournalMode.MEMORY);
                 dbConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
-                dbConfig.setLockingMode(SQLiteConfig.LockingMode.EXCLUSIVE);
+                //dbConfig.setLockingMode(SQLiteConfig.LockingMode.EXCLUSIVE);
                 dbConfig.toProperties().store(new FileOutputStream(sQLiteConfigFile), null);
                 return dbConfig.toProperties();
             } catch (IOException ex) {

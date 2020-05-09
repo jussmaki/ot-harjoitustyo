@@ -105,8 +105,10 @@ public class MemorygameUI extends Application {
         TabPane toplists = new TabPane();
         Tab byTime = new Tab("Topscores by time", topScoresByTime);
         byTime.setClosable(false);
+        //byTime.setDisable(true);
         Tab byTries = new Tab("TopScores by tries", topScoresByTries);
         byTries.setClosable(false);
+        //byTries.setDisable(true);
         toplists.getTabs().add(byTime);
         toplists.getTabs().add(byTries);
         BorderPane scoreBP = new BorderPane();
@@ -135,6 +137,16 @@ public class MemorygameUI extends Application {
         
         stage.setOnShown((event) -> {
             updateToplists();
+            /*Timer toplistLoadTimer = new Timer();
+            toplistLoadTimer.schedule(new TimerTask(){
+                @Override
+                public void run() {
+                    Platform.runLater(() -> updateToplists());
+                    Platform.runLater(() -> byTime.setDisable(false));
+                    Platform.runLater(() -> byTime.setDisable(false));
+                    toplistLoadTimer.cancel();
+                }
+            }, 1000);*/
         });
         
         //action handler for new game from menu
@@ -172,6 +184,7 @@ public class MemorygameUI extends Application {
     }
     
     private void updateToplists() {
+        System.out.println("nyt");
         topScoresByTime.setText(updateToplistsByTime(pairsInGame));
         topScoresByTries.setText(updateToplistsByTries(pairsInGame));
     }

@@ -38,5 +38,9 @@ public class ScoreService {
     
     public List<Score> getTopTenByTries(int totalPairs) {
         return scoreDao.getScoresByTotalPairsOrderByTries(totalPairs, 10);
-    }    
+    }
+
+    public void emptyToplists() {
+        scoreDao.removeAllScores();
+    }
 }

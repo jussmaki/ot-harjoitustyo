@@ -30,9 +30,21 @@ public class ScoreDaoTest {
         scoreDao.create(s);
         assertTrue(scoreDao.getAll().contains(s));
     }
+
+    @Test
+    public void allScoresCanBeRemoved() {
+        scoreDao.removeAllScores();
+        assertEquals(0, scoreDao.getAll().size());
+        for (int i=0; i<1000; i++) {
+            scoreDao.create(new Score("player"+i, i, i, i));
+        }
+        assertEquals(1000, scoreDao.getAll().size());
+        scoreDao.removeAllScores();
+        assertEquals(0, scoreDao.getAll().size());
+    }
     
     @Test
-    public void scoreCanBeRemoved() {
+    public void oneScoreCanBeRemoved() {
         scoreDao.removeAllScores();        
         Score s = new Score ("testi123", 2, 1, 2);
         scoreDao.create(s);
@@ -47,7 +59,7 @@ public class ScoreDaoTest {
         for (int i=0; i<100; i++) {
             scoreDao.create(new Score("player"+i, i, i, i));
         }
-        assertEquals(scoreDao.getAll(10).size(), 10);
+        assertEquals(10, scoreDao.getAll(10).size());
     }
     @Test
     public void correctCountOfScoresAreReturnedWhenThereAreGivenLimitTest2() {
@@ -55,7 +67,7 @@ public class ScoreDaoTest {
         for (int i=0; i<100; i++) {
             scoreDao.create(new Score("player"+i, i, i, i));
         }
-        assertEquals(scoreDao.getAll(20).size(), 20);
+        assertEquals(20, scoreDao.getAll(20).size());
     }
     
     @Test
@@ -65,7 +77,7 @@ public class ScoreDaoTest {
             scoreDao.create(new Score("player"+i, i, i, 64));
         }
         List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTime(64, 10);
-        assertEquals(scores.size(), 10);
+        assertEquals(10, scores.size());
     }
     
     @Test
@@ -76,8 +88,8 @@ public class ScoreDaoTest {
         }
         List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTime(16, 10);
         for (int i=0; i<10; i++) {
-            assertEquals(scores.get(i).getTime(), i*2);
-            assertEquals(scores.get(i).getName(), "player"+i);
+            assertEquals(i*2, scores.get(i).getTime());
+            assertEquals("player"+i, scores.get(i).getName());
         }
     }
     
@@ -88,7 +100,7 @@ public class ScoreDaoTest {
             scoreDao.create(new Score("player"+i, i, i, 32));
         }
         List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTries(32, 10);
-        assertEquals(scores.size(), 10);
+        assertEquals(10, scores.size());
     }
     
     @Test
@@ -99,8 +111,8 @@ public class ScoreDaoTest {
         }
         List<Score> scores = scoreDao.getScoresByTotalPairsOrderByTries(16, 10);
         for (int i=0; i<10; i++) {
-            assertEquals(scores.get(i).getTries(), i^i);
-            assertEquals(scores.get(i).getName(), "player"+i);
+            assertEquals(i^i, scores.get(i).getTries());
+            assertEquals("player"+i, scores.get(i).getName());
         }
     }    
 }

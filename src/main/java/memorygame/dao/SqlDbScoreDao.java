@@ -53,13 +53,13 @@ public class SqlDbScoreDao implements ScoreDao {
         }
         createDatabaseIfNotExists();
     }
-
+    
     public SqlDbScoreDao(String driverName, String dbFile) {
         this.driverName = driverName;
         this.dbFile = dbFile;
         try {
             Class.forName(driverName);
-            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile, dbConfig());
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,6 +76,7 @@ public class SqlDbScoreDao implements ScoreDao {
                 dbConfig.setTransactionMode(SQLiteConfig.TransactionMode.EXCLUSIVE);
                 dbConfig.setJournalMode(SQLiteConfig.JournalMode.MEMORY);
                 dbConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
+                dbConfig.setLockingMode(SQLiteConfig.LockingMode.EXCLUSIVE);
                 dbConfig.toProperties().store(new FileOutputStream(sQLiteConfigFile), null);
                 return dbConfig.toProperties();
             } catch (IOException ex) {

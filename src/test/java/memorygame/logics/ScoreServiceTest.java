@@ -7,6 +7,7 @@ import memorygame.dao.SqlDbScoreDao;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.sqlite.SQLiteConfig;
 
 public class ScoreServiceTest {
     private ScoreDao scoreDao;
@@ -24,7 +25,7 @@ public class ScoreServiceTest {
     
     @Test
     public void atStartThereAreNoScoresInDb() {
-        assertTrue (scoreDao.getAll().isEmpty());
+        assertTrue(scoreDao.getAll().isEmpty());
     }
     
     @Test
@@ -41,7 +42,7 @@ public class ScoreServiceTest {
         for (int i=0; i<100; i++) {
             scoreDao.create(new Score("player"+i, i*2, i^i, 32));
         }
-        assertEquals(scoreService.getAll().size(), 100);
+        assertEquals(100, scoreService.getAll().size());
     }
     
     @Test
@@ -50,7 +51,7 @@ public class ScoreServiceTest {
         for (int i=0; i<100; i++) {
             scoreDao.create(new Score("player"+i, i*2, i^i, 32));
         }
-        assertEquals(scoreService.getTopTenByTime(32).size(), 10);  
+        assertEquals(10, scoreService.getTopTenByTime(32).size());  
     }
     
     @Test
@@ -61,8 +62,8 @@ public class ScoreServiceTest {
         }
         List<Score> scores = scoreService.getTopTenByTime(32);
         for (int i=0; i<10; i++) {
-            assertEquals(scores.get(i).getName(), "player"+i);
-            assertEquals(scores.get(i).getTime(), i^i);
+            assertEquals("player"+i, scores.get(i).getName());
+            assertEquals(i^i, scores.get(i).getTime());
         }        
     }
     
@@ -72,7 +73,7 @@ public class ScoreServiceTest {
         for (int i=0; i<100; i++) {
             scoreDao.create(new Score("player"+i, i*2, i^i, 32));
         }
-        assertEquals(scoreService.getTopTenByTries(32).size(), 10);          
+        assertEquals(10, scoreService.getTopTenByTries(32).size());          
     }
 
     @Test
@@ -83,8 +84,18 @@ public class ScoreServiceTest {
         }
         List<Score> scores = scoreService.getTopTenByTries(32);
         for (int i=0; i<10; i++) {
-            assertEquals(scores.get(i).getName(), "player"+i);
-                assertEquals(scores.get(i).getTries(), i*2);
+            assertEquals("player"+i, scores.get(i).getName());
+            assertEquals(i*2, scores.get(i).getTries());
         }        
+    }
+    
+    @Test
+    public void emptyToplistsWorks() {
+        scoreDao.removeAllScores();
+        for (int i=0; i<100; i++) {
+            scoreDao.create(new Score("player"+i, i*2, i^i, i*i));
+        }
+        scoreService.emptyToplists();
+        assertEquals(0, scoreService.getAll().size());          
     }    
 }

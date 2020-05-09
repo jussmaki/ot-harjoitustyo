@@ -1,16 +1,17 @@
 package memorygame.ui;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -99,8 +100,8 @@ public class MemorygameUI extends Application {
         Button quitButton = new Button("Quit");
         pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
         Label pairsInGameText = new Label ("Pairs in game: " + pairsInGame);
-        topScoresByTime = new Label(updateToplistsByTime(pairsInGame));
-        topScoresByTries = new Label(updateToplistsByTries(pairsInGame));
+        topScoresByTime = new Label("");
+        topScoresByTries = new Label("");
         TabPane toplists = new TabPane();
         Tab byTime = new Tab("Topscores by time", topScoresByTime);
         byTime.setClosable(false);
@@ -108,11 +109,15 @@ public class MemorygameUI extends Application {
         byTries.setClosable(false);
         toplists.getTabs().add(byTime);
         toplists.getTabs().add(byTries);
+        BorderPane scoreBP = new BorderPane();
+        Button emptyToplists = new Button("Empty toplists");
+        scoreBP.setTop(toplists);
+        scoreBP.setBottom(emptyToplists);
         VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton);
-        homescreen.getItems().addAll(hsButtons, toplists);
+        homescreen.getItems().addAll(hsButtons, scoreBP);
         homescreen.setDividerPositions(0.5);
         hsButtons.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
-        toplists.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
+        scoreBP.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
         
@@ -128,6 +133,10 @@ public class MemorygameUI extends Application {
             updateToplists();
         });
         
+        stage.setOnShown((event) -> {
+            updateToplists();
+        });
+        
         //action handler for new game from menu
         newGameItem.setOnAction((event) -> {
             newGame(stage, (int) comboBoxX.getValue(), (int) comboBoxY.getValue());
@@ -136,6 +145,17 @@ public class MemorygameUI extends Application {
         //homescreen button actions
         quitButton.setOnAction((event) -> {
             stage.close();
+        });
+        
+        emptyToplists.setOnAction((event) -> {
+            Alert confirmEmptyToplists = new Alert(AlertType.CONFIRMATION);
+            confirmEmptyToplists.setHeaderText("Really empty all highscores?");
+            confirmEmptyToplists.setTitle("Confirm emptying toplists");
+            Optional<ButtonType> result = confirmEmptyToplists.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                scoreService.emptyToplists();
+                updateToplists();
+            }
         });
         
         newGameButton.setOnAction((event) -> {

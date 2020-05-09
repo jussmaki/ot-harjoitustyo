@@ -209,16 +209,18 @@ public class SqlDbScoreDao implements ScoreDao {
     
     private void createDatabaseIfNotExists() {
         try {         
-            dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
+            PreparedStatement stmt = dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    player TEXT NOT NULL,\n" +
                 "    tries INTEGER NOT NULL,\n" +
                 "    total_time INTEGER NOT NULL,\n" +
                 "    total_pairs INTEGER NOT NULL\n" +
-                ");").executeUpdate();
-            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_id ON Score(id);").executeUpdate();
-            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_player ON Score(player);").executeUpdate();
-            dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_total_pairs ON Score(total_pairs);").executeUpdate();
+                ");");
+            stmt.executeUpdate();
+            stmt.close();
+            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_id ON Score(id);").executeUpdate();
+            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_player ON Score(player);").executeUpdate();
+            //dbConn.prepareStatement("CREATE INDEX IF NOT EXISTS index_total_pairs ON Score(total_pairs);").executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }

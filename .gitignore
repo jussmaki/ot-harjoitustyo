@@ -3,6 +3,5 @@
 /laskarit/viikko2/Unicafe/target/
 /target/
 /nbproject/
-/scores.db
-/dbconfig.properties
 /*.db
+/*.properties

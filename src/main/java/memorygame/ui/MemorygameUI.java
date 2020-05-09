@@ -329,5 +329,4 @@ public class MemorygameUI extends Application {
     public static void main(String[] args) {
        launch(MemorygameUI.class);
    }   
-    
 }

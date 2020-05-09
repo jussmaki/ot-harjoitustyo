@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.sqlite.SQLiteConfig;
 
 public class SqlDbScoreDao implements ScoreDao {
 
@@ -22,6 +23,7 @@ public class SqlDbScoreDao implements ScoreDao {
     private String driverName;
     private String dbFile;
     private String propertiesFile = "dbconfig.properties";
+    private String sQLiteConfigFile = "sqliteconfig.properties";
     
     public SqlDbScoreDao() {
         Properties props = new Properties();
@@ -45,7 +47,7 @@ public class SqlDbScoreDao implements ScoreDao {
         }
         try {
             Class.forName(driverName);
-            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile, dbConfig());
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,11 +59,36 @@ public class SqlDbScoreDao implements ScoreDao {
         this.dbFile = dbFile;
         try {
             Class.forName(driverName);
-            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile, dbConfig());
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         createDatabaseIfNotExists();
+    }
+    
+    private Properties dbConfig() {
+        File file = new File(sQLiteConfigFile);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                SQLiteConfig dbConfig = new SQLiteConfig();
+                dbConfig.setBusyTimeout(30000);
+                dbConfig.setTransactionMode(SQLiteConfig.TransactionMode.EXCLUSIVE);
+                dbConfig.setJournalMode(SQLiteConfig.JournalMode.MEMORY);
+                dbConfig.setSynchronous(SQLiteConfig.SynchronousMode.NORMAL);
+                dbConfig.toProperties().store(new FileOutputStream(sQLiteConfigFile), null);
+                return dbConfig.toProperties();
+            } catch (IOException ex) {
+                Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        Properties dbProps = new Properties();
+        try {
+            dbProps.load(new FileInputStream((sQLiteConfigFile)));
+        } catch (IOException ex) { 
+            Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dbProps;
     }
     
     @Override

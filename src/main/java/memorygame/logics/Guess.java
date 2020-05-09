@@ -1,4 +1,3 @@
-
 package memorygame.logics;
 
 public class Guess {
@@ -36,6 +35,7 @@ public class Guess {
         }
         return false;
     }
+
     /**
     * Metodi vertaa valittuja kortteja toisiinsa ja palauttaa tiedon siitä löytyikö pari
     * 

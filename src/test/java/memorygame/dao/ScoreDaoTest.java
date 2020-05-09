@@ -1,30 +1,32 @@
-
 package memorygame.dao;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ScoreDaoTest {
     
     private ScoreDao scoreDao;
+    private String dbDriver;
+    private String dbFile;
     
     @Before
-    public void setUp() throws IOException {
-        scoreDao = new SqlDbScoreDao("org.sqlite.JDBC", "test.db");
-        scoreDao.removeAllScores();
+    public void setUp() {
+        dbDriver = "org.sqlite.JDBC";
+        dbFile = "test.db";
+        removeTestDbFile();
+        scoreDao = new SqlDbScoreDao(dbDriver, dbFile);
     }
     
     @After
     public void removeTestDbFile() {
-        File testDb = new File("test.db");
-        testDb.delete();
+        File testDb = new File(dbFile);
+        if (testDb.exists()) {
+            testDb.delete();
+        }
     }
     
     @Test
@@ -40,7 +42,7 @@ public class ScoreDaoTest {
         assertTrue(scoreDao.getAll().contains(s));
     }
     
-    /*@Test
+    @Test
     public void scoreCanBeRemoved() {
         scoreDao.removeAllScores();        
         Score s = new Score ("testi123", 2, 1, 2);
@@ -48,7 +50,7 @@ public class ScoreDaoTest {
         assertTrue(scoreDao.getAll().contains(s));
         scoreDao.removeByName(s.getName());
         assertFalse(scoreDao.getAll().contains(s));
-    }*/
+    }
 
     @Test
     public void correctCountOfScoresAreReturnedWhenThereAreGivenLimitTest1() {

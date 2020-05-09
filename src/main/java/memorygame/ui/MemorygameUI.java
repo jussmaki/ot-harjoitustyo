@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -15,6 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -34,10 +38,12 @@ import memorygame.logics.Game;
 
 public class MemorygameUI extends Application {
 
-    private ScoreService scoreService;
     private Game game;
     private Card[][] gameGrid;
+    private ScoreService scoreService;
     private int pairsInGame;
+    private Label topScoresByTime;
+    private Label topScoresByTries;
     private Scene start;
     private Timer timeTimer;
     private boolean clickedTwoCardsNoMatch = false;
@@ -61,8 +67,8 @@ public class MemorygameUI extends Application {
         menubar.getMenus().add(menu);
 
         //homescreen
-        BorderPane homescreen = new BorderPane();
-        homescreen.setMinSize(256, 256);
+        SplitPane homescreen = new SplitPane();
+        homescreen.setMinSize(800, 600);
         Label optionsText = new Label("Select board size:");
         ComboBox comboBoxX = new ComboBox();
         comboBoxX.getItems().addAll(
@@ -93,29 +99,33 @@ public class MemorygameUI extends Application {
         Button quitButton = new Button("Quit");
         pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
         Label pairsInGameText = new Label ("Pairs in game: " + pairsInGame);
-        Label topScoresByTime = new Label(updateToplistsByTime(pairsInGame));
-        Label topScoresByTries = new Label(updateToplistsByTries(pairsInGame));
-        BorderPane toplists = new BorderPane();
-        toplists.setLeft(topScoresByTime);
-        toplists.setRight(topScoresByTries);
+        topScoresByTime = new Label(updateToplistsByTime(pairsInGame));
+        topScoresByTries = new Label(updateToplistsByTries(pairsInGame));
+        TabPane toplists = new TabPane();
+        Tab byTime = new Tab("Topscores by time", topScoresByTime);
+        byTime.setClosable(false);
+        Tab byTries = new Tab("TopScores by tries", topScoresByTries);
+        byTries.setClosable(false);
+        toplists.getTabs().add(byTime);
+        toplists.getTabs().add(byTries);
         VBox hsButtons = new VBox(optionsText, options, pairsInGameText, newGameButton, quitButton);
-        homescreen.setLeft(hsButtons);
-        homescreen.setRight(toplists);
+        homescreen.getItems().addAll(hsButtons, toplists);
+        homescreen.setDividerPositions(0.5);
+        hsButtons.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
+        toplists.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
         
         comboBoxX.setOnAction((event) -> {
             pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
             pairsInGameText.setText("Pairs in game: " + pairsInGame);
-            topScoresByTime.setText(updateToplistsByTime(pairsInGame));
-            topScoresByTries.setText(updateToplistsByTries(pairsInGame));            
+            updateToplists();            
         });
         
         comboBoxY.setOnAction((event) -> {
             pairsInGame = (int) comboBoxX.getValue() * (int) comboBoxY.getValue() / 2;
             pairsInGameText.setText("Pairs in game: " + pairsInGame);
-            topScoresByTime.setText(updateToplistsByTime(pairsInGame));
-            topScoresByTries.setText(updateToplistsByTries(pairsInGame));     
+            updateToplists();
         });
         
         //action handler for new game from menu
@@ -130,7 +140,10 @@ public class MemorygameUI extends Application {
         
         newGameButton.setOnAction((event) -> {
             newGame(stage, (int) comboBoxX.getValue(), (int) comboBoxY.getValue());
-        });       
+        });
+        
+        //set windows not resizable
+        stage.setResizable(false);
         
         //show homescreen first
         stage.setScene(start);
@@ -138,26 +151,31 @@ public class MemorygameUI extends Application {
        
     }
     
+    private void updateToplists() {
+        topScoresByTime.setText(updateToplistsByTime(pairsInGame));
+        topScoresByTries.setText(updateToplistsByTries(pairsInGame));
+    }
+    
     private String updateToplistsByTime(int pairsInGame) {
-        String topScores = "Top scores by time:\n";
+        String topScores = "\n";
         List<Score> scoresByTime = scoreService.getTopTenByTime(pairsInGame);
         if (scoresByTime.isEmpty()) {
             return topScores + "No saved scores with " + pairsInGame + " pairs in game"; 
         }
-        for (Score s : scoresByTime) {
-            topScores = topScores + s.getName() + " time: " + s.getTime() + "\n";
+        for (int i=1; i<=scoresByTime.size(); i++) {
+            topScores = topScores + + i + ". " + scoresByTime.get(i-1).getName() + ", time: " + scoresByTime.get(i-1).getTime() + "\n";
         }
         return topScores;
     }    
     
     private String updateToplistsByTries(int pairsInGame) {
-        String topScores = "top scores by tries:\n";
+        String topScores = "\n";
         List<Score> scoresByTries = scoreService.getTopTenByTries(pairsInGame);
         if (scoresByTries.isEmpty()) {
             return topScores + "No saved scores with " + pairsInGame + " pairs in game"; 
         }
-        for (Score s : scoresByTries) {
-            topScores = topScores + s.getName() + " tries: " + s.getTries() + "\n";
+        for (int i=1; i<=scoresByTries.size(); i++) {
+            topScores = topScores + + i + ". " + scoresByTries.get(i-1).getName() + ", tries: " + scoresByTries.get(i-1).getTries() + "\n";
         }
         return topScores;
     }
@@ -200,9 +218,7 @@ public class MemorygameUI extends Application {
                 button.setFont(font);
                 button.setBackground(new Background(new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
                 button.setMinHeight(100);
-                //button.setMaxHeight(100);
                 button.setMinWidth(100);
-                //button.setMaxWidth(100);
                 board.add(button, x, y);
                 cardsOnBoard[x][y] = button;
                 int rx = x;
@@ -237,7 +253,6 @@ public class MemorygameUI extends Application {
 
         layout.setCenter(board);
         Scene gameview = new Scene(layout);
-
         stage.setScene(gameview);        
     }
     
@@ -259,7 +274,6 @@ public class MemorygameUI extends Application {
         information.setHeaderText("game ended with " + game.getTries() + " tries.");
         information.setContentText(game.getPlayTime() + " seconds");
         information.setTitle("The end.");
-        //scoreService.addNewScore("testi", game.getTries(), game.getTries(), game.getPairsTotal());
         information.setOnCloseRequest((javafx.scene.control.DialogEvent eh) -> {
             timeTimer.cancel();
             Label nameLabel = new Label("Name:");
@@ -270,22 +284,20 @@ public class MemorygameUI extends Application {
             }
             HBox hb = new HBox();
             hb.getChildren().addAll(nameLabel, nameField);
-            //hb.setSpacing(10);
             Button sendButton = new Button();
             Button quitToMenuButton = new Button();
             sendButton.setText("Add score!");
             quitToMenuButton.setText("Quit to menu");
-            Label topScoresByTime = new Label(updateToplistsByTime(game.getPairsTotal()));
-            Label topScoresByTries = new Label(updateToplistsByTries(game.getPairsTotal()));
             Label scoreLabel = new Label("You found all " + game.getPairsTotal() + " pairs in " + game.getPlayTime() + " seconds with " + game.getTries() + " tries.");
-            BorderPane toplists = new BorderPane();
-            toplists.setLeft(topScoresByTime);
-            toplists.setRight(topScoresByTries);
-            VBox addScoreScreen = new VBox(new Label("Enter name for scorelist:"), hb, scoreLabel, new HBox(sendButton, quitToMenuButton), toplists);
+            BorderPane topscores = new BorderPane();
+            topscores.setLeft(new Label("Topscores by time" + topScoresByTime.getText()));
+            topscores.setRight(new Label("Topscores by tries" + topScoresByTries.getText()));
+            VBox addScoreScreen = new VBox(new Label("Enter name for scorelist:"), hb, scoreLabel, new HBox(sendButton, quitToMenuButton), topscores);
             sendButton.setOnAction((event) -> {
                 if (!nameField.getText().equals("") && nameField.getText().length() <= 30) {
                     scoreService.addNewScore(nameField.getText(), game.getTries(), game.getTries(), game.getPairsTotal());
                     System.setProperty("player", nameField.getText());
+                    updateToplists();
                     stage.setScene(start);
                 } else {        
                     Alert nameLengthError = new Alert(AlertType.INFORMATION);
@@ -295,11 +307,15 @@ public class MemorygameUI extends Application {
                     nameLengthError.show();
                 }
             });
+
             quitToMenuButton.setOnAction((event) -> {
                 stage.setScene(start);
             });
-            stage.setScene(new Scene(addScoreScreen));
+
+            Scene addScoreScene = new Scene(addScoreScreen);
+            stage.setScene(addScoreScene);
         });
+        
         information.show();
     }
 
@@ -308,7 +324,6 @@ public class MemorygameUI extends Application {
       if (timeTimer != null) {
           timeTimer.cancel();
       }
-      System.out.println("application is shutting down");
     }    
     
     public static void main(String[] args) {

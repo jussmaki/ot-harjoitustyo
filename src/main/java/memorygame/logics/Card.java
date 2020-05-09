@@ -1,4 +1,5 @@
 package memorygame.logics;
+
 public class Card {
     private int id;
     private int number;

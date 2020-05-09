@@ -14,8 +14,6 @@ public class Game {
     private Guess guess;
 
     public Game(int gridSizeX, int gridSizeY) {
-
-        //this.gridSize = size;
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
         //initializing counters
@@ -31,7 +29,6 @@ public class Game {
             for (int y = 0; y < gridSizeY; y++) {
                 this.grid[x][y] = this.deck.getCards().get(0);
                 this.deck.getCards().remove(0);
-                //System.out.println(this.grid[x][y].getNumber());
             }
         }
         this.guess = new Guess();
@@ -42,14 +39,10 @@ public class Game {
     * @return 1-2 = valittujen korttien lukumäärä, 3 = löytyi pari.
     */    
     public int handleAction(int x, int y) {
-        //printGrid();
-        System.out.println("player clicked, x: " + x + " y: " + y + " card: " + this.grid[x][y].toString());
-        System.out.println("tries: " + this.tries);
         if (!firstCardClicked) {
             firstCardClicked = true;
             this.startTime = System.nanoTime();            
         }
-        System.out.println("cards selected: " + this.guess.getCardsSelected());
         if (this.guess.getCardsSelected() < 1) { //selecting first card
             this.guess.addGuess(this.grid[x][y]);
             return this.guess.getCardsSelected();
@@ -121,14 +114,5 @@ public class Game {
 
     public Guess getGuess() {
         return guess;
-    }
-        
-    public void printGrid() {
-        for (int y = 0; y < this.gridSizeY; y++) {
-            for (int x = 0; x < this.gridSizeX; x++) {
-                System.out.print(this.grid[x][y].getNumber() + " ");
-            }
-            System.out.println("");
-        }
-    }
+    }   
 }

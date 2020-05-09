@@ -1,4 +1,3 @@
-
 package memorygame.logics;
 
 import java.util.List;
@@ -8,12 +7,11 @@ import memorygame.dao.ScoreDao;
 public class ScoreService {
     
     private ScoreDao scoreDao;
-    //private otherDao otherDao;
     
     public ScoreService(ScoreDao scoreDao) {
         this.scoreDao = scoreDao;
-        //this.otherDao = otherDao;
     }
+    
    /**
     * Metodi tallentaa pelituloksen
     * @param name nimi

@@ -1,5 +1,6 @@
 package memorygame.ui;
 
+import com.sun.javafx.css.StyleManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -117,7 +118,8 @@ public class MemorygameUI extends Application {
         homescreen.getItems().addAll(hsButtons, scoreBP);
         homescreen.setDividerPositions(0.5);
         hsButtons.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
-        scoreBP.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
+        scoreBP.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));  
+        Application.setUserAgentStylesheet("com/sun/javafx/scene/control/skin/caspian/caspian.css");
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
         

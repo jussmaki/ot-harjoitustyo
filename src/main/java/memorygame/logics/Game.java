@@ -111,8 +111,4 @@ public class Game {
         }
         return (int) ((System.nanoTime() - this.startTime) / 1e9);
     }
-
-    public Guess getGuess() {
-        return guess;
-    }   
 }

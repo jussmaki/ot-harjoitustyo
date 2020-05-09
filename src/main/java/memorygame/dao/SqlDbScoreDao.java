@@ -48,7 +48,6 @@ public class SqlDbScoreDao implements ScoreDao {
         try {
             Class.forName(driverName);
             dbConn = DriverManager.getConnection("jdbc:sqlite:" + dbFile, dbConfig());
-            System.out.println(dbConn.getAutoCommit());
             createDatabaseIfNotExists();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,7 +208,7 @@ public class SqlDbScoreDao implements ScoreDao {
     }
     
     private void createDatabaseIfNotExists() {
-        try {         
+        try {
             PreparedStatement stmt = dbConn.prepareStatement("CREATE TABLE IF NOT EXISTS Score (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    player TEXT NOT NULL,\n" +

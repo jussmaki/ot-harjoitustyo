@@ -1,33 +1,26 @@
 package memorygame.logics;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import memorygame.dao.Score;
 import memorygame.dao.ScoreDao;
 import memorygame.dao.SqlDbScoreDao;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ScoreServiceTest {
     private ScoreDao scoreDao;
+    private String dbDriver;
+    private String dbFile;
     private ScoreService scoreService;
     
     @Before
-    public void setUp() throws IOException {
-        scoreDao = new SqlDbScoreDao("org.sqlite.JDBC", "test.db");
-        scoreDao.removeAllScores();
+    public void setUp() {
+        dbDriver = "org.sqlite.JDBC";
+        dbFile = ":memory:"; //using in-memory database for testing
+        scoreDao = new SqlDbScoreDao(dbDriver, dbFile);
         scoreService = new ScoreService(scoreDao);
     }
-    
-    @After
-    public void removeTestDbFile() {
-        File testDb = new File("test.db");
-        testDb.delete();
-    }    
     
     @Test
     public void atStartThereAreNoScoresInDb() {

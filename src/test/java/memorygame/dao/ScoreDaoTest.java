@@ -1,8 +1,6 @@
 package memorygame.dao;
 
-import java.io.File;
 import java.util.List;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

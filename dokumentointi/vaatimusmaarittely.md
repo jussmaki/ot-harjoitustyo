@@ -6,11 +6,11 @@ Sovellus on perinteinen muistipeli. Pelissä käyttäjän on tarkoitus mahdollis
 
 ## Käyttöliittymä
 
-![Alkuvalikko](alkuvalikko.jpg)
+![Alkuvalikko](alkuvalikko.png)
 
 Alkuvalikko: näkymä, jossa pelaaja voi valita uuden pelin asetukset, katsoa toplistoja ja aloittaa uuden peli.
 
-![Peli](peli.jpg)
+![Peli](peli.png)
 
 Peli: näkymä, jossa itse peli tapahtuu.
 

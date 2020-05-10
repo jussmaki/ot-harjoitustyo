@@ -315,7 +315,7 @@ public class MemorygameUI extends Application {
             VBox addScoreScreen = new VBox(new Label("Enter name for scorelist:"), hb, scoreLabel, new HBox(sendButton, quitToMenuButton), topscores);
             sendButton.setOnAction((event) -> {
                 if (!nameField.getText().equals("") && nameField.getText().length() <= 30) {
-                    scoreService.addNewScore(nameField.getText(), game.getTries(), game.getTries(), game.getPairsTotal());
+                    scoreService.addNewScore(nameField.getText(), game.getTries(), game.getPlayTime(), game.getPairsTotal());
                     System.setProperty("player", nameField.getText());
                     updateToplists();
                     stage.setScene(start);

@@ -4,6 +4,12 @@
 
 Sovellus on testattu monipuolisesti JUnit-kirjaston avulla laadituilla yksikkötesteillä ja kehitystyön aikana manuaalisesti.
 
+## Testikattavuus
+
+![Testikattavuus](testikattavuus.png)
+
+Sovelluksen automatisoitujen testien rivikattavuus on 77 prosenttia ja haaraumakattavuus 70 prosenttia.
+
 ### Memorygame.data
 
 *Score*, *ScoreDao*, *SqlScoreDao*, ja *DbConnection*-luokkien testaamisesta vastaa *ScoreDaoTest* -luokka, joka testatessaan *ScoreDao*-rajapinnan toimintaa testaa samalla em. luokkien toimintaa.
@@ -19,13 +25,7 @@ Sovelluslogiikan testit on toteutettu kahdella eri testiluokalla: *GuessTest* ja
 
 ### Järjestelmätestaus ja Memorygame.UI
 
-Käyttöliittymästä vastaava luokka *MemorygameUI*, käyttöliittymän yhteistoiminta sovelluslogiikan kanssa ja sovellus kokonaisuudessaan on testattu kattavasti manuaalisesti pelin kehityksen aikana. Kaikkia määrittelydokumentissa määriteltyjä toiminnallisuuksia on testattu ja sovellusta on 'yritetty rikkoa' virheellisillä syötteillä.
- 
-## Testikattavuus
-
-![Testikattavuus](testikattavuus.png)
-
-Sovelluksen automatisoitujen testien rivikattavuus on 77 prosenttia ja haaraumakattavuus 70 prosenttia.
+Käyttöliittymästä vastaava luokka *MemorygameUI*, käyttöliittymän yhteistoiminta sovelluslogiikan kanssa ja sovellus kokonaisuudessaan on testattu kattavasti manuaalisesti pelin kehityksen aikana. Kaikkia määrittelydokumentissa määriteltyjä toiminnallisuuksia on testattu ja sovellusta on 'yritetty rikkoa' virheellisillä syötteillä ja poistamalla tietokantatiedosto ja tiedosto *dbconfig.properties*.
 
 ## Tiedossa olevat virheet sovelluksen toiminnassa
 

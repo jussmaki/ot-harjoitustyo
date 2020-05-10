@@ -34,7 +34,7 @@ Pakkaus *main* sisältää vain main-metodin sisältävän luokan *Main*
 
 ### Memorygame.UI
 
-Pakkaus *UI* sisältää käyttöliittymästä vastaavan *Memorygame.UI*-luokan
+Pakkaus *UI* sisältää käyttöliittymästä vastaavan *MemorygameUI*-luokan
 
 ##### JavaFX
 

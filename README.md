@@ -4,6 +4,8 @@
 
 Ohjelmistotekniikan harjoitustyön aiheeksi valitsin muistipelin
 
+![Peli](dokumentointi/peli.png)
+
 ## Komentorivitoiminnot
 
 ### Repositorion kloonaus ja siirtyminen repositorioon

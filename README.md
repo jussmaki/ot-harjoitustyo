@@ -6,10 +6,11 @@ Ohjelmistotekniikan harjoitustyön aiheeksi valitsin muistipelin
 
 ## Komentorivitoiminnot
 
-### Repositorion kloonaus
+### Repositorion kloonaus ja siirtyminen repositorioon
 
 ```
 git clone https://github.com/jussmaki/ot-harjoitustyo
+cd ot-harjoitustyo
 ```
 
 ### Sovelluksen käynnistys

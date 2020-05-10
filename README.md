@@ -2,7 +2,7 @@
 
 ## Sovellus
 
-Harjoitustyön aiheeksi olen valinnut muistipelin
+Ohjelmistotekniikan harjoitustyön aiheeksi valitsin muistipelin
 
 ## Komentorivitoiminnot
 
@@ -55,6 +55,8 @@ mvn javadoc:javadoc
 
 [Arkkitehtuuri](dokumentointi/arkkitehtuuri.md)
 
-[Vaatimustenmäärittely](dokumentointi/vaatimusmaarittely.md)
+[Käyttöohje](dokumentointi/kayttoohje.md)
 
 [Työaikakirjanpito](dokumentointi/tuntikirjanpito.md)
+
+[Vaatimustenmäärittely](dokumentointi/vaatimusmaarittely.md)

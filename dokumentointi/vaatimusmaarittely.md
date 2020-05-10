@@ -6,13 +6,17 @@ Sovellus on perinteinen muistipeli. Pelissä käyttäjän on tarkoitus mahdollis
 
 ## Käyttöliittymä
 
+### Alkuvalikko
+
 ![Alkuvalikko](alkuvalikko.png)
 
-Alkuvalikko: näkymä, jossa pelaaja voi valita uuden pelin asetukset, katsoa toplistoja ja aloittaa uuden peli.
+Alkuvalikokko on näkymä, jossa pelaaja voi valita uuden pelin asetukset, katsoa toplistoja ja aloittaa uuden peli.
+
+### Peli
 
 ![Peli](peli.png)
 
-Peli: näkymä, jossa itse peli tapahtuu.
+Varsinainen peli tapahtuu pelinäkymässä.
 
 ## Toiminnallisuudet
 
@@ -30,6 +34,6 @@ Peli: näkymä, jossa itse peli tapahtuu.
 
 - palojen valinta ja parien arvaaminen
 
-- pelaajalle näytetään erilaista statistiikkaa pelin kulusta: arvausten määrä, löydetyt parit ja kulunut aika.
+- pelaajalle näytetään erilaista statistiikkaa pelin kulusta: arvausten määrä, löydetyt parit ja kulunut aika
  
 - pelin päätyttyä pelin tuloksen tallennus

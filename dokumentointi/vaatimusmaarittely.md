@@ -8,15 +8,15 @@ Sovellus on perinteinen muistipeli. Pelissä käyttäjän on tarkoitus mahdollis
 
 ### Alkuvalikko
 
-![Alkuvalikko](alkuvalikko.png)
+Alkuvalikokko on näkymä, jossa pelaaja voi:
 
-Alkuvalikokko on näkymä, jossa pelaaja voi valita uuden pelin asetukset, katsoa toplistoja ja aloittaa uuden peli.
+- valita uuden pelin asetukset (ruudkon leveys ja korkeus)
+- katsoa toplistoja
+- aloittaa uuden pelin
 
 ### Peli
 
-![Peli](peli.png)
-
-Varsinainen peli tapahtuu pelinäkymässä.
+Varsinainen peli tapahtuu pelinäkymässä
 
 ## Toiminnallisuudet
 

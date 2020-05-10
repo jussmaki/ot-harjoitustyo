@@ -48,7 +48,7 @@ Pareja arvataan klikkaamalla tummanvihreitä alueita hiirellä.
 
 ![Pelissä](pelissa.png)
 
-Peli-näkymän alalaitaan tulee näkyviin kulloisenkin pelitilanteen mukaisia ohjeita.
+Peli-näkymän alalaitaan tulee näkyviin ohjeita ja tietoja pelitilanteesta.
 
 ### Tuloksen tallennus
 

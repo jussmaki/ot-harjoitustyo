@@ -67,4 +67,4 @@ Käyttöliittymän piirtämiseen sovellus käyttää kirjastoa **OpenJFX 12.0.2*
 
 ### Ohjelmassa ja arkkitehtuurissa parannettavaa
 
-- Käyttöliittymän piirtävä luokka *MemorygameUI* on hieman sekava ja refaktoroinnin tarpeessa. Luokka sisältää paljon koodirivejä, joilla käyttöliittymä rakennetaan. Tätä voisi refaktoroida ja siirtyä käyttämään *FXML*:ää.
+- Käyttöliittymän piirtävä luokka *MemorygameUI* on hyvin kommentoitu joskin hieman sekava ja refaktoroinnin tarpeessa. Luokka sisältää paljon koodirivejä, joilla käyttöliittymä rakennetaan. Luokkaa voisi refaktoroida ja samalla siirtyä käyttämään *FXML*:ää.

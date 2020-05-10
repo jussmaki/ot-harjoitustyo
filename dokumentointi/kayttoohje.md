@@ -64,11 +64,12 @@ Peli näyttää nykyiset parhaat pelitukset valitulle parien määrälle ja kysy
 
 Peli luo ensimmäisellä käynnistyskerralla tiedostot *dbconfig.properties* ja *scores.db*. Tiedosto *scores.db* on tietokantatiedosto pelin tulosten tallentamista varten. 
 
+### Oletuskonfiguraation muuttaminen
+
+Tiedosto *dbconfig.properties* sisältää tietokantatiedoston nimen ja tietokantayhteyden muodostamisessa käytettävän ajurin. 
+
 ```
 db.driver=org.sqlite.JDBC
 db.file=scores.db
 ```
-
-### Oletuskonfiguraation muuttaminen
-
-Tiedosto *dbconfig.properties* sisältää tietokantatiedoston nimen ja tietokantayhteyden muodostamisessa käytettävän ajurin. Muuttamalla tiedoston sisältöä voit vaihtaa nämä haluamiksesi.
+Muuttamalla tiedoston sisältöä voit vaihtaa nämä haluamiksesi.

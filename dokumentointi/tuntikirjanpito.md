@@ -11,5 +11,5 @@
 | 28.4.   | 8,5  | pelin käyttöliittymä, pisteiden tallennus, yksikkötestejä, JavaDocsin aloitus |
 | 8.5.   | 11  | tallennuksen refaktorointi, yksikkötestejä, toplistojen käyttöliittymän refaktorointi |
 | 9.5.   | 13  | pelin käyttöliittymän ja tallennuksen refaktorointi, yksikkötestejä, käyttöohjeen aloitus |
-| 10.5.   | 9  | pelin käyttöliittymän ja tallennuksen refaktorointi, pieniä korjauksia, JavaDoc, käyttöohje, testausdokumentti, vaatimusmäärittelyn ja arkkitehtuurikuvauksen päivitys, loppupalautus |
-| yht   | 75,5  | | 
+| 10.5.   | 9,25  | pelin käyttöliittymän ja tallennuksen refaktorointi, pieniä korjauksia, JavaDoc, käyttöohje, testausdokumentti, vaatimusmäärittelyn ja arkkitehtuurikuvauksen päivitys, loppupalautus |
+| yht   | 75,75  | | 

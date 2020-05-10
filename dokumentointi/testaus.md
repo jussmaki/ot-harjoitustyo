@@ -6,7 +6,7 @@ Sovellus on testattu monipuolisesti JUnit-kirjaston avulla laadituilla yksikköt
 
 ### Memorygame.data
 
-*Score*, *ScoreDao*, *SqlScoreDao*, ja *DbConnection*-luokkien testaamisesta vastaa *ScoreDaoTest* -luokka, joka testasessaan *ScoreDao*-rajapinnan toimintaa testaa samalla em. luokkien toimintaa.
+*Score*, *ScoreDao*, *SqlScoreDao*, ja *DbConnection*-luokkien testaamisesta vastaa *ScoreDaoTest* -luokka, joka testatessaan *ScoreDao*-rajapinnan toimintaa testaa samalla em. luokkien toimintaa.
 
 ### Memorygame.service
 
@@ -14,7 +14,7 @@ Sovellus on testattu monipuolisesti JUnit-kirjaston avulla laadituilla yksikköt
 
 ### Memorygame.logics
 
-Sovelluslogiikan testit on toteutettu kahdella eri testiluokalla: *GuessTest* ja *GameTest*. *GuessTest* keskittyy puhtaasti *Guess*-luokan testaamiseen. *GameTest* luokkaa testaa *Game* -luokan lisäksi muiden luokkien yhteistoimintaa *Game*-luokan kanssa.
+Sovelluslogiikan testit on toteutettu kahdella eri testiluokalla: *GuessTest* ja *GameTest*. *GuessTest* keskittyy puhtaasti *Guess*-luokan testaamiseen. *GameTest* luokkaa testaa *Game* -luokan lisäksi muiden pakkauksen luokkien yhteistoimintaa *Game*-luokan kanssa.
 
 
 ### Järjestelmätestaus ja Memorygame.UI

@@ -45,6 +45,8 @@ mvn javadoc:javadoc
 
 ## Releaset
 
+[Final release](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/final)
+
 [Viikko 6](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/Week6)
 
 [Viikko 5](https://github.com/jussmaki/ot-harjoitustyo/releases/tag/Week5)

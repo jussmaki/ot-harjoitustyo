@@ -10,7 +10,7 @@ Pakkaus *data* sisältää pelituloksen tallentamiseen ja tietokantayhteyksiin l
 
 #### SQLite JDBC
 
-Sovellus käyttää tietokantaan tallentamisessa Maven kirjastoa **SQlite JDBC 3.31.1**
+Sovellus käyttää tietokantaan tallentamisessa kirjastoa **SQlite JDBC 3.31.1**
 
 ### Memorygame.logics
 
@@ -30,7 +30,7 @@ Pakkaus *UI* sisältää käyttöliittymästä vastaavan *Memorygame.UI*-luokan
 
 #### JavaFX
 
-Käyttöliittymän piirtämiseen sovellus käyttää Maven kirjastoa **OpenJFX 12.0.2**
+Käyttöliittymän piirtämiseen sovellus käyttää kirjastoa **OpenJFX 12.0.2**
 
 ### Pelin logiikka yksinkertaistettuna
  

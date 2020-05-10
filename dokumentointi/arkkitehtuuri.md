@@ -8,15 +8,23 @@ Sovelluksen rakenne koostuu viidestä eri pakkauksesta *data*, *logics*, *main*,
 
 Pakkaus *data* sisältää pelituloksen tallentamiseen ja tietokantayhteyksiin liittyvät luokat *Score*, *ScoreDao*, *SqlScoreDao* ja *dbConnection*
 
-#### SQLite JDBC
+##### DAO-suunnittelumalli
+
+Pelituksen tallentamisessa hyödynnetään *Database Access Object* -suunnittelumallia. Tietokantaan tallentava luokka *SqlScoreDao* toteuttaa luokassa *ScoreDao* määritellyn DAO-rajapinnan. Luokkaan *dbConnection* on eriytetty kaikki tietokantayhteyden muodostamiseen liittyvät asiat. Tämän ansiosta tallennusratkaisua on helppo laajentaa tai muuttaa myöhemmin. 
+
+##### SQLite JDBC
 
 Sovellus käyttää tietokantaan tallentamisessa kirjastoa **SQlite JDBC 3.31.1**
+
+##### dbconfig.properties
+
+Ensimmäisellä käynnistyskerralla sovellus luo tiedoston *dbconfig.properties* ja tallentaa sinne tietokannan ajurin ja tietokantatiedoston oletusnimen
 
 ### Memorygame.logics
 
 Pakkaus *logics* sisältää muistipelin käsitteellistävät luokat *Card* ja *Deck*, sekä pelin logiikasta vastaavat luokat *Game* ja *Guess*
 
-#### Luokkakaavio pakkauksesta memorygame.logics
+##### Luokkakaavio pakkauksesta memorygame.logics
 
 ![luokkakaavio](luokkakaavio.jpg)
 
@@ -28,7 +36,7 @@ Pakkaus *main* sisältää vain main-metodin sisältävän luokan *Main*
 
 Pakkaus *UI* sisältää käyttöliittymästä vastaavan *Memorygame.UI*-luokan
 
-#### JavaFX
+##### JavaFX
 
 Käyttöliittymän piirtämiseen sovellus käyttää kirjastoa **OpenJFX 12.0.2**
 
@@ -42,7 +50,7 @@ Käyttöliittymän piirtämiseen sovellus käyttää kirjastoa **OpenJFX 12.0.2*
  - UI pyytää gameoliolta ruudukon getterillä *getGrid()*
  - UI piirtää pelitilannetta käyttäjälle *drawBoard()* privaattimetodillaan
  - Pelaajaan valitessa palan käännettäväksi valinta viedään logiikasta vastaavalle *Game*-luokalla kutsumalla sen metodia *handleAction(int x, int y)*
- - *handleAction* vie valinnan tuloksen UI:lle palauttamalla kokonaisluvun 1, 2 tai 3. 1-2 = valittujen korttien lukumäärä, 3 = löytyi pari.
+ - *handleAction* vie valinnan tuloksen UI:lle palauttamalla kokonaisluvun 1, 2 tai 3. 1-2 = valittujen korttien lukumäärä, 3 = löytyi pari
  
 ```java
 	//checking if all pairs are found
@@ -53,6 +61,10 @@ Käyttöliittymän piirtämiseen sovellus käyttää kirjastoa **OpenJFX 12.0.2*
 - UI tarkistaa jokaisen valinnan jälkeen onko peli käynnissä ja jos peli on päättynyt UI näyttää ikkunan, jossa pelin tulos (arvausten määrä, käytetty aika, monellako parilla pelattiin)
 - UI näyttää nykyisen toplistan vastaavalla parien määrällä pelatuista peleistä ja kysyy pelaajan nimeä tuloksen tallentamista varten
 
-#### Sekvenssikaavio palojen kääntämisen logiikasta
+##### Sekvenssikaavio palojen kääntämisen logiikasta
 
 ![Sekvenssikaavio pelin logiikasta](sekvenssikaavio.png)
+
+### Ohjelmassa ja arkkitehtuurissa parannettavaa
+
+- Käyttöliittymän piirtävä luokka *MemorygameUI* on hieman sekava ja refaktoroinnin tarpeessa. Luokka sisältää paljon koodirivejä, joilla käyttöliittymä rakennetaan. Tätä voisi refaktoroida ja siirtyä käyttämään *FXML*:ää.

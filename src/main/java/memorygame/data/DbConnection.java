@@ -11,6 +11,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Luokka tietokantayhteyden muodostamiseen.
+ */
 public class DbConnection {
     
     private Connection connection = null;
@@ -18,6 +21,10 @@ public class DbConnection {
     private String driverName;
     private String dbFile;    
 
+    /**
+     * Konstruktori lataa tietokantaan liittyvät asetukset tiedostosta.
+     * Jos tiedostoa ei löydy, konstruktori luo uuden tiedoston asetuksille.
+     */
     public DbConnection() {
         Properties props = new Properties();
         File file = new File(propertiesFile);
@@ -55,6 +62,11 @@ public class DbConnection {
         }
     }
 
+    /**
+     * Metodi palauttaa ja tarvittaessa luo uuden Connection-olion.
+     * 
+     * @return Connection-olio
+     */
     public Connection getConnection() {
         if (this.connection == null) {
             this.connect();

@@ -1,4 +1,4 @@
-package memorygame.dao;
+package memorygame.data;
 
 import memorygame.data.SqlDbScoreDao;
 import memorygame.data.Score;

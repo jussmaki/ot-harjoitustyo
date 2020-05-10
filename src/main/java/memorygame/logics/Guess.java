@@ -1,19 +1,25 @@
 package memorygame.logics;
 
+/**
+ * Parien arvausta abstrahoiva luokka.
+ */
 public class Guess {
     private Card card1;
     private Card card2;
     private int cardsSelected;
 
+    /**
+     * Uuden Guess-olion luonti.
+     */
     public Guess() {
         this.card1 = null;
         this.card2 = null;
         this.cardsSelected = 0;
     }
    /**
-    * Metodi lisää käyttäjän valitseman kortin arvaukseksi
-    * @param Card valittu kortti 
-    * @return kortin valinta onnistui/ei onnistunut
+    * Metodi lisää käyttäjän valitseman kortin arvaukseksi.
+    * @param card valittu kortti 
+    * @return Kortin valinta onnistui/ei onnistunut
     */
     public boolean addGuess(Card card) {
         if (card.isFound() || !card.isFaceDown()) {
@@ -37,9 +43,8 @@ public class Guess {
     }
 
     /**
-    * Metodi vertaa valittuja kortteja toisiinsa ja palauttaa tiedon siitä löytyikö pari
-    * 
-    * @return löytyikö pari vai ei
+    * Metodi vertaa valittuja kortteja toisiinsa ja palauttaa tiedon siitä löytyikö pari.
+    * @return Löytyikö pari true/false
     */
     public boolean match() {
         if (this.cardsSelected == 2 && this.card1.getNumber() == this.card2.getNumber()) { //pair found

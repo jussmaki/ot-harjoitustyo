@@ -1,4 +1,4 @@
-package memorygame.logics;
+package memorygame.service;
 
 import memorygame.service.ScoreService;
 import java.util.List;

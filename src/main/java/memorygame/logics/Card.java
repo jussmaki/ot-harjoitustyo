@@ -1,11 +1,19 @@
 package memorygame.logics;
 
+/**
+ * Pakan yksittäistä korttia kuvaava luokka.
+ */
 public class Card {
     private int id;
     private int number;
     private boolean faceDown;
     private boolean found;
     
+    /**
+     * Uuden kortin luominen.
+     * @param id kortin id
+     * @param number kortin numero, on sama kuin parin numero
+     */
     public Card(int id, int number) {
         this.id = id;
         this.number = number;
@@ -36,9 +44,9 @@ public class Card {
     }
 
     /**
-    * Metodi palauttaa tiedon siitä onko kortti kuvapuoli alaspäin
+    * Metodi palauttaa tiedon siitä onko kortti kuvapuoli alaspäin.
     * 
-    * @return kuvapuoli alaspäin
+    * @return Kuvapuoli alaspäin true/false
     */
     public boolean isFaceDown() {
         return faceDown;
@@ -49,9 +57,9 @@ public class Card {
     }
     
     /**
-    * Metodi palauttaa tiedon siitä onko kortille löytynyt pari
+    * Metodi palauttaa tiedon siitä onko kortille löytynyt pari.
     * 
-    * @return onko kortille löytynyt pari
+    * @return Onko kortille löytynyt pari true/false
     */
     public boolean isFound() {
         return found;
@@ -60,10 +68,4 @@ public class Card {
     public void setFound(boolean found) {
         this.found = found;
     }
-    
-    @Override
-    public String toString() {
-        return "Card{" + "id=" + id + ", number=" + number + ", faceDown=" + faceDown + ", found=" + found + '}';
-    }    
-
 }

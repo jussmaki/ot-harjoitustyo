@@ -1,5 +1,8 @@
 package memorygame.logics;
 
+/**
+ * Sovelluksen varsinaisen pelilogiikan toteuttava luokka.
+ */
 public class Game {
     private Deck deck;
     private Card[][] grid;
@@ -13,6 +16,11 @@ public class Game {
     private boolean firstCardClicked;
     private Guess guess;
 
+    /**
+     * Konstruktori alustaa uuden pelin parametreina annetulla ruudukon koolla.
+     * @param gridSizeX ruudukon leveys
+     * @param gridSizeY ruudukon korkeus
+     */
     public Game(int gridSizeX, int gridSizeY) {
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
@@ -34,8 +42,9 @@ public class Game {
         this.guess = new Guess();
     }
     /**
-    * Metodi hoitaa kaikkien pelitapahtumien logiikan käsittelyn
-    * 
+    * Metodi hoitaa kaikkien pelitapahtumien logiikan käsittelyn.
+    * @param x pelaajan ruudukosta klikkaaman koordinaatin x-akseli
+    * @param y pelaakan ruudukosta klikkaaman koordinaatin y-akseli
     * @return 1-2 = valittujen korttien lukumäärä, 3 = löytyi pari.
     */    
     public int handleAction(int x, int y) {
@@ -64,9 +73,8 @@ public class Game {
         return 2;
     }
     /**
-    * Metodi palauttaa tiedon siitä onko peli käynnissä
-    * 
-    * @return peli käynnissä
+    * Metodi palauttaa tiedon siitä onko peli käynnissä.
+    * @return peli käynnissä true/false
     */
     public boolean gameInProgress() {
         if (this.pairsFound < this.pairsTotal) {
@@ -102,6 +110,10 @@ public class Game {
         return gridSizeY;
     }
         
+    /**
+     * Metodi palauttaa peliin kuluneen ajan.
+     * @return Käytetty aika
+     */
     public int getPlayTime() {
         if (!this.firstCardClicked) {
             return 0;

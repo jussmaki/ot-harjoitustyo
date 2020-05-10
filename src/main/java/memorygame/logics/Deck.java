@@ -3,9 +3,16 @@ package memorygame.logics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Korttien muodostamaa pakkaa kuvaava luokka.
+ */
 public class Deck {
     private ArrayList<Card> cards;
 
+    /**
+     * Uuden pakan luonti.
+     * @param size parien määrä
+     */
     public Deck(int size) {
         this.cards = new ArrayList<>();
         int id = 0;
@@ -18,9 +25,9 @@ public class Deck {
         Collections.shuffle(cards);
     }
     /**
-    * Metodi palauttaa kaikki pakan kortit
+    * Metodi palauttaa kaikki pakan kortit.
     * 
-    * @return kaikki kortit
+    * @return Kaikki kortit
     */
     public ArrayList<Card> getCards() {
         return this.cards;

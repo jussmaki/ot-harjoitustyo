@@ -10,16 +10,27 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * ScoreDao-rajapinnan toteuttava tietokantaa hyödyntävä luokka.
+ */
 public class SqlDbScoreDao implements ScoreDao {
 
     private DbConnection dbConnection;
     private Connection connection;
     
+    /**
+     * Tietokantayhteyden avaus tiedostoon tallennettujen asetusten avulla.
+     */
     public SqlDbScoreDao() {
         this.dbConnection = new DbConnection();
         this.connection = dbConnection.getConnection();
     }
     
+    /**
+     * Tietokantayhteyden avaus parametreina annetuilla tiedoilla.
+     * @param driverName käytettävä JDBC ohjain 
+     * @param dbFile tietokannan nimi tai sijainti
+     */
     public SqlDbScoreDao(String driverName, String dbFile) {
         this.dbConnection = new DbConnection(driverName, dbFile);
         this.connection = dbConnection.getConnection();

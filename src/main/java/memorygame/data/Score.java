@@ -2,12 +2,22 @@ package memorygame.data;
 
 import java.util.Objects;
 
+/**
+ * Yksittäistä pelitulosta kuvaava luokka.
+ */
 public class Score implements Comparable<Score> {
     private String name;
     private int tries;
     private int time;
     private int totalPairs;
 
+    /**
+     * Uuden pelituloksen luominen.
+     * @param name pelaajan nimi
+     * @param tries yritysten määrä
+     * @param time käytetty aika
+     * @param totalPairs parien määrä
+     */
     public Score(String name, int tries, int time, int totalPairs) {
         this.name = name;
         this.tries = tries;

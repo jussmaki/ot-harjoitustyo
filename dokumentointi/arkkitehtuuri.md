@@ -8,6 +8,10 @@ Sovelluksen rakenne koostuu viidestä eri pakkauksesta *data*, *logics*, *main*,
 
 Pakkaus *data* sisältää pelituloksen tallentamiseen ja tietokantayhteyksiin liittyvät luokat *Score*, *ScoreDao*, *SqlScoreDao* ja *dbConnection*
 
+#### SQLite JDBC
+
+Sovellus käyttää tietokantaan tallentamisessa Maven kirjastoa **SQlite JDBC 3.31.1**
+
 ### Memorygame.logics
 
 Pakkaus *logics* sisältää muistipelin käsitteellistävät luokat *Card* ja *Deck*, sekä pelin logiikasta vastaavat luokat *Game* ja *Guess*
@@ -23,6 +27,10 @@ Pakkaus *main* sisältää vain main-metodin sisältävän luokan *Main*
 ### Memorygame.UI
 
 Pakkaus *UI* sisältää käyttöliittymästä vastaavan *Memorygame.UI*-luokan
+
+#### JavaFX
+
+Käyttöliittymän piirtämiseen sovellus käyttää Maven kirjastoa **OpenJFX 12.0.2**
 
 ### Pelin logiikka yksinkertaistettuna
  

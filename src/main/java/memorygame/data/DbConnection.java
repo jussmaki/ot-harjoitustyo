@@ -45,7 +45,7 @@ public class DbConnection {
         this.dbFile = dbFile;
     }
     
-    private void Connect() {
+    private void connect() {
         try {
             Class.forName(driverName);
             this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
@@ -57,7 +57,7 @@ public class DbConnection {
 
     public Connection getConnection() {
         if (this.connection == null) {
-            this.Connect();
+            this.connect();
         }
         return this.connection;
     }
@@ -78,5 +78,4 @@ public class DbConnection {
             Logger.getLogger(SqlDbScoreDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

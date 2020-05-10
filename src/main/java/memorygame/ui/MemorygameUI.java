@@ -1,6 +1,5 @@
 package memorygame.ui;
 
-import com.sun.javafx.css.StyleManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -32,8 +31,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import memorygame.dao.Score;
-import memorygame.dao.SqlDbScoreDao;
+import memorygame.data.Score;
+import memorygame.data.SqlDbScoreDao;
 import memorygame.service.ScoreService;
 import memorygame.logics.Card;
 import memorygame.logics.Game;
@@ -119,7 +118,7 @@ public class MemorygameUI extends Application {
         homescreen.setDividerPositions(0.5);
         hsButtons.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));
         scoreBP.maxWidthProperty().bind(homescreen.widthProperty().multiply(0.5));  
-        Application.setUserAgentStylesheet("com/sun/javafx/scene/control/skin/caspian/caspian.css");
+        Application.setUserAgentStylesheet("com/sun/javafx/scene/control/skin/modena/modena.css");
         VBox hsLayout = new VBox(menubar, homescreen);
         start = new Scene(hsLayout);
         

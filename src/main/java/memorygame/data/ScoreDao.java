@@ -1,4 +1,4 @@
-package memorygame.dao;
+package memorygame.data;
 
 import java.util.List;
 

@@ -2,9 +2,9 @@ package memorygame.logics;
 
 import memorygame.service.ScoreService;
 import java.util.List;
-import memorygame.dao.Score;
-import memorygame.dao.ScoreDao;
-import memorygame.dao.SqlDbScoreDao;
+import memorygame.data.Score;
+import memorygame.data.ScoreDao;
+import memorygame.data.SqlDbScoreDao;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;

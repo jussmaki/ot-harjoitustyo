@@ -1,5 +1,8 @@
 package memorygame.dao;
 
+import memorygame.data.SqlDbScoreDao;
+import memorygame.data.Score;
+import memorygame.data.ScoreDao;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;

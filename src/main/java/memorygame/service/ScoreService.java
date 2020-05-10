@@ -1,8 +1,8 @@
 package memorygame.service;
 
 import java.util.List;
-import memorygame.dao.Score;
-import memorygame.dao.ScoreDao;
+import memorygame.data.Score;
+import memorygame.data.ScoreDao;
 
 public class ScoreService {
     

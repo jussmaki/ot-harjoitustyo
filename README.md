@@ -6,6 +6,12 @@ Ohjelmistotekniikan harjoitustyön aiheeksi valitsin muistipelin
 
 ## Komentorivitoiminnot
 
+### Repositorion kloonaus
+
+```
+git clone https://github.com/jussmaki/ot-harjoitustyo
+```
+
 ### Sovelluksen käynnistys
 
 ```
@@ -56,6 +62,8 @@ mvn javadoc:javadoc
 [Arkkitehtuuri](dokumentointi/arkkitehtuuri.md)
 
 [Käyttöohje](dokumentointi/kayttoohje.md)
+
+[Testausdokumentti](dokumentointi/testaus.md)
 
 [Työaikakirjanpito](dokumentointi/tuntikirjanpito.md)
 
